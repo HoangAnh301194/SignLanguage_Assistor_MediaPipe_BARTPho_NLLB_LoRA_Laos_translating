@@ -81,15 +81,7 @@ If you use this work in your research, please cite:
 }
 ```
 
-## 📄 License
 
-[Specify your license]
-
-## 👥 Contact
-
-[Contact information]
-
----
 
 For detailed documentation, see the [docs/](docs/) directory.
 
