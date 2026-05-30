@@ -1,0 +1,263 @@
+﻿token_id,gloss_token,surface_form,category
+1,am_uot,ẩm ướt,weather
+2,an,ăn,activity
+3,anh,anh,person_subject
+4,ao,áo,need_object
+5,ao_khoac,áo khoác,need_object
+6,ba,ba,person_subject
+7,ba_lo,ba lô,object
+8,ba_muoi,ba mươi,number
+9,bac_si,bác sĩ,person
+10,ban,bàn,person_subject
+11,ban_be,bạn bè,person
+12,ban_do,bản đồ,need_object
+13,ban_phim,bàn phím,object
+14,banh,bánh,food_drink
+15,banh_mi,bánh mì,food_drink
+16,bao,bão,weather
+17,bao_nhieu,bao nhiêu,question_word
+18,bao_nhieu_tien,bao nhiêu tiền,question_phrase
+19,bay,bảy,number
+20,bay_gio,bây giờ,time
+21,ben_xe,bến xe,place
+22,benh_nhan,Bệnh nhân,person_subject
+23,benh_vien,bệnh viện,place
+24,bi,bị,verb
+25,bi_thuong,bị thương,health
+26,bo,bố,person_subject
+27,bon,bốn,number
+28,bun,bún,food_drink
+29,buoi_chieu,buổi chiều,time
+30,buoi_sang,buổi sáng,time
+31,buoi_toi,buổi tối,time
+32,buoi_trua,buổi trưa,time
+33,buon,buồn,emotion
+34,buon_non,buồn nôn,health
+35,but,bút,need_object
+36,ca,cá,food_drink
+37,ca_phe,cà phê,food_drink
+38,cam_lanh,cảm lạnh,health
+39,cam_on,cảm ơn,greeting
+40,cam_thay,cảm thấy,verb
+41,can,cần,verb
+42,cap_cuu,cấp cứu,emergency
+43,cham,chậm,adjective
+44,chao,cháo,food_drink
+45,chao_buoi_sang,chào buổi sáng,greeting
+46,chao_buoi_toi,chào buổi tối,greeting
+47,chay,chạy,activity
+48,chay_mau,chảy máu,health
+49,chi,chị,person_subject
+50,chin,chín,number
+51,cho,cho,place
+52,choi,chơi,activity
+53,chong_mat,chóng mặt,health
+54,chu_nhat,chủ nhật,time
+55,chung_toi,Chúng tôi,person_subject
+56,co,có,person_subject
+57,co_giao,cô giáo,person_subject
+58,co_may,có mây,weather
+59,com,cơm,need_object
+60,con_gai,con gái,person_subject
+61,con_trai,con trai,person_subject
+62,cong_nhan,công nhân,profession
+63,cong_ty,công ty,place
+64,cong_vien,công viên,place
+65,cu,cũ,adjective
+66,cua,của,object
+67,da,đã,aspect
+68,dan,dẫn,verb
+69,dang,đang,aspect
+70,dau,đau,health
+71,dau_bung,đau bụng,health
+72,dau_chan,đau chân,health
+73,dau_dau,đau đầu,health
+74,dau_hong,đau họng,health
+75,dau_lung,đau lưng,health
+76,dau_tay,đau tay,health
+77,de,dễ,adjective
+78,den,đến,object
+79,di,đi,verb
+80,di_benh_vien,đi bệnh viện,need_object
+81,di_bo,đi bộ,activity
+82,di_cho,đi chợ,activity
+83,di_hoc,đi học,activity
+84,di_nha_ve_sinh,đi nhà vệ sinh,need_object
+85,di_ung,dị ứng,health
+86,dia_chi,địa chỉ,need_object
+87,dien_thoai,điện thoại,need_object
+88,doc_sach,đọc sách,activity
+89,dong_ho,đồng hồ,object
+90,dong_y,đồng ý,verb
+91,dua,đưa,verb
+92,duong,đường,place
+93,em,em,person_subject
+94,ghe,ghế,place
+95,gi,gì,question_word
+96,gia_dinh,gia đình,person
+97,giao_vien,giáo viên,profession
+98,giat_do,giặt đồ,activity
+99,giay,giày,need_object
+100,gio_manh,gió mạnh,weather
+101,giuong,giường,place
+102,giup,giúp,verb
+103,giup_do,giúp đỡ,need_object
+104,goi,gọi,verb
+105,goi_bac_si,gọi bác sĩ,need_object
+106,goi_y_ta,gọi y tá,need_object
+107,hai,hai,number
+108,hai_muoi,hai mươi,number
+109,hieu,hiểu,verb
+110,ho,ho,health
+111,hoc_bai,học bài,activity
+112,hoc_sinh,học sinh,profession
+113,hom_nay,hôm nay,time
+114,hom_qua,hôm qua,time
+115,keo,kẹo,food_drink
+116,khau_trang,khẩu trang,need_object
+117,khi_nao,khi nào,question_word
+118,kho,khó,adjective
+119,kho_rao,khô ráo,adjective
+120,kho_tho,khó thở,health
+121,khoe,khỏe,emotion
+122,khong,không,negation
+123,khong_dong_y,không đồng ý,phrase
+124,khong_hieu,không hiểu,phrase
+125,khong_thich,không thích,verb
+126,kinh,kính,need_object
+127,kinh_lup,kính lúp,object
+128,ky_su,kỹ sư,profession
+129,la,là,copula
+130,lam_bai_tap,làm bài tập,activity
+131,lam_on,làm ơn,polite
+132,lam_viec,làm việc,activity
+133,lanh,lạnh,adjective
+134,lay,lấy,verb
+135,lo_lang,lo lắng,emotion
+136,lop_hoc,lớp học,place
+137,mat,mất,verb
+138,mau_cam,màu cam,color
+139,mau_den,màu đen,color
+140,mau_do,màu đỏ,color
+141,mau_gi,màu gì,question_phrase
+142,mau_hong,màu hồng,color
+143,mau_nau,màu nâu,color
+144,mau_tim,màu tím,color
+145,mau_trang,màu trắng,color
+146,mau_vang,màu vàng,color
+147,mau_xanh,màu xanh,color
+148,may_bay,máy bay,transport
+149,may_tinh,máy tính,object
+150,me,mẹ,person_subject
+151,met,mệt,health
+152,moi,mới,adjective
+153,mot,một,number
+154,mot_tram,một trăm,number
+155,mu,mũ,object
+156,mua,mua,generated_or_function
+157,mua_dong,mùa đông,time
+158,mua_he,mùa hè,time
+159,mua_sam,mua sắm,activity
+160,muoi,mười,number
+161,muon,muốn,verb
+162,nam,năm,time
+163,nang,nặng,adjective
+164,nau_an,nấu ăn,activity
+165,nen,nên,connector
+166,ngay,ngày,time
+167,ngay_mai,ngày mai,time
+168,nghe,nghe,activity
+169,nghe_duoc,nghe được,ability
+170,nghe_nghiep,nghề nghiệp,profession
+171,nghi,nghỉ,activity
+172,nghi_ngoi,nghỉ ngơi,need_object
+173,ngu,ngủ,activity
+174,nguoi_khiem_thinh,Người khiếm thính,person_subject
+175,nguoi_phien_dich,người phiên dịch,need_object
+176,nguoi_than,người thân,person
+177,nha,nhà,place
+178,nha_bep,nhà bếp,place
+179,nha_ga,nhà ga,place
+180,nha_thuoc,nhà thuốc,place
+181,nha_ve_sinh,nhà vệ sinh,place
+182,nhan_vien,nhân viên,profession
+183,nhanh,nhanh,adjective
+184,nhe,nhẹ,adjective
+185,noi,nói,activity
+186,noi_com_dien,nồi cơm điện,object
+187,noi_duoc,nói được,ability
+188,nong,nóng,adjective
+189,nuoc,nước,need_object
+190,nuoc_cam,nước cam,food_drink
+191,o,ở,need_object
+192,o_dau,ở đâu,question_word
+193,on_ao,ồn ào,adjective
+194,ong,ông,person_subject
+195,pho,phở,food_drink
+196,phong,phòng,place
+197,phong_kham,phòng khám,place
+198,phong_ngu,phòng ngủ,place
+199,quan,quần,need_object
+200,rau,rau,food_drink
+201,rua_tay,rửa tay,activity
+202,sac_pin,sạc pin,need_object
+203,sach,sách,adjective
+204,san_bay,sân bay,place
+205,sau,sáu,number
+206,se,sẽ,aspect
+207,sieu_thi,siêu thị,place
+208,sinh_vien,sinh viên,profession
+209,so,sợ,emotion
+210,sot,sốt,health
+211,sua,sữa,food_drink
+212,tai_sao,tại sao,question_word
+213,tam,tám,activity
+214,tam_biet,tạm biệt,greeting
+215,tap_the_duc,tập thể dục,activity
+216,tau_hoa,tàu hỏa,transport
+217,taxi,taxi,transport
+218,thang,tháng,time
+219,thay_giao,thầy giáo,person_subject
+220,thich,thích,verb
+221,thit,thịt,food_drink
+222,thom,thơm,adjective
+223,thu_ba,thứ ba,time
+224,thu_bay,thứ bảy,time
+225,thu_hai,thứ hai,time
+226,thu_nam,thứ năm,time
+227,thu_sau,thứ sáu,time
+228,thu_tu,thứ tư,time
+229,thuc_an,thức ăn,need_object
+230,thuoc,thuốc,need_object
+231,thuong,thuong,emergency
+232,tim,tìm,verb
+233,tivi,ti vi,object
+234,toi,tôi,person_subject
+235,toi_nay,tối nay,time
+236,tot,tốt,adjective
+237,tra,trà,food_drink
+238,trai_cay,trái cây,food_drink
+239,troi_lanh,trời lạnh,weather
+240,troi_mua,trời mưa,weather
+241,troi_nang,trời nắng,weather
+242,troi_nong,trời nóng,weather
+243,truong,trường,place
+244,tuc_gian,tức giận,emotion
+245,uong,uống,activity
+246,uong_nuoc,uong nuoc,fixed_or_custom
+247,uot,ướt,adjective
+248,van_phong,văn phòng,place
+249,viet,viết,activity
+250,vo,vở,object
+251,vui,vui,emotion
+252,vui_long,vui lòng,polite
+253,xau,xấu,adjective
+254,xe_bus,xe buýt,transport
+255,xe_cuu_thuong,xe cứu thương,need_object
+256,xe_dap,xe đạp,transport
+257,xe_may,xe máy,transport
+258,xem,xem,activity
+259,xin_chao,xin chào,greeting
+260,xin_loi,xin lỗi,greeting
+261,y_ta,y tá,person
+262,yen_tinh,yên tĩnh,adjective

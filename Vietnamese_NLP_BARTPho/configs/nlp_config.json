@@ -1,0 +1,13 @@
+﻿
+{
+  "model_name": "vinai/bartpho-word-base",
+  "trained_model_dir": "models/bartpho_sentence",
+  "sentence_rules_path": "configs/sentence_rules.json",
+  "max_input_length": 64,
+  "max_target_length": 64,
+  "num_epochs": 5,
+  "batch_size": 2,
+  "learning_rate": 0.00005,
+  "use_rules": true,
+  "use_bartpho": true
+}

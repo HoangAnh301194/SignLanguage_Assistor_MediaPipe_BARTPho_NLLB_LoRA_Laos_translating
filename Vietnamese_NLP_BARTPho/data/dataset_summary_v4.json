@@ -1,0 +1,68 @@
+﻿{
+  "dataset_name": "VSL Vietnamese NLP Gloss-to-Sentence Dataset v4 Mega",
+  "version": "v4.0",
+  "created_at": "2026-05-26T05:07:48",
+  "num_samples": 32755,
+  "num_gloss_tokens": 262,
+  "num_domains": 32,
+  "splits": {
+    "train": 26204,
+    "val": 3275,
+    "test": 3276
+  },
+  "domains": {
+    "command": 80,
+    "complex_health": 800,
+    "complex_need": 768,
+    "complex_schedule": 800,
+    "confirmation": 200,
+    "daily_activity": 552,
+    "demo_fixed": 6,
+    "description": 580,
+    "education": 40,
+    "emergency": 7,
+    "family": 204,
+    "food_drink": 600,
+    "generated_command": 86,
+    "generated_emergency": 209,
+    "generated_family": 201,
+    "generated_health": 6065,
+    "generated_mix": 10181,
+    "generated_question": 1029,
+    "greeting": 6,
+    "health": 532,
+    "location": 792,
+    "need": 720,
+    "negation": 200,
+    "object_action": 680,
+    "quantity": 3328,
+    "question": 175,
+    "shopping": 324,
+    "social": 54,
+    "time_activity": 3024,
+    "transport": 152,
+    "weather": 270,
+    "work": 90
+  },
+  "complexity": {
+    "simple": 6810,
+    "medium": 23198,
+    "complex": 2747
+  },
+  "columns_full": [
+    "id",
+    "domain",
+    "intent",
+    "gloss_sequence",
+    "vietnamese_sentence",
+    "complexity",
+    "source",
+    "split"
+  ],
+  "columns_simple": [
+    "gloss_sequence",
+    "vietnamese_sentence"
+  ],
+  "task": "Convert Vietnamese sign-language gloss sequences into natural Vietnamese sentences",
+  "source_note": "Silver/synthetic dataset built from VSL-style gloss vocabulary and common Vietnamese communication templates; not a public ground-truth corpus."
+}

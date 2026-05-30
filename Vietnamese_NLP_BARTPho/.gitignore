@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+
+outputs/
+.cache/
+
+models/bartpho_sentence/
+*.zip
+*.pt
+*.pth
+*.bin
+*.safetensors
