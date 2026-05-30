@@ -1,0 +1,14 @@
+﻿\subsection{Mục tiêu nghiên cứu và phát triển}
+
+Mục tiêu của đề tài không chỉ dừng ở việc huấn luyện riêng lẻ từng mô hình mà còn hướng tới xây dựng được một hệ thống hoàn chỉnh có khả năng hoạt động thực tế. Trong đó, cả ba mô hình thành phần đều phải được mô tả, đánh giá và chứng minh vai trò trong chuỗi xử lý tổng thể.
+
+\begin{itemize}
+    \item Tích hợp mô hình nhận diện ký hiệu ASL từ dữ liệu video bằng MediaPipe Holistic và mô hình TFLite pre-trained (Kaggle ASL Signs).
+    \item Xây dựng mô hình hoặc cơ chế khôi phục câu tiếng Việt từ chuỗi gloss đầu ra.
+    \item Xây dựng mô hình dịch Việt - Lào dựa trên kiến trúc dịch máy đã fine-tune.
+    \item Tích hợp ba mô-đun thành hệ thống chạy thử thời gian thực.
+    \item Đánh giá từng mô hình bằng các bộ metric phù hợp và đánh giá toàn hệ thống.
+\end{itemize}
+
+Các mục tiêu trên được triển khai theo hai mức. Ở mức mô-đun, mỗi thành phần cần có đầu vào, đầu ra, cấu trúc mã nguồn và cách đánh giá riêng. Ở mức hệ thống, các mô-đun phải giao tiếp được với nhau thông qua định dạng trung gian rõ ràng, cụ thể là nhãn/gloss sau nhận diện và câu tiếng Việt sau khôi phục. Nhờ đó, báo cáo không chỉ trình bày một mô hình đơn lẻ mà thể hiện được toàn bộ quy trình xây dựng ứng dụng AI đa mô hình.
+

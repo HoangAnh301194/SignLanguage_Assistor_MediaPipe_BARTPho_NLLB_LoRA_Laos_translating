@@ -1,0 +1,18 @@
+﻿\subsection{Luồng dữ liệu từ đầu vào đến đầu ra}
+
+Luồng dữ liệu của hệ thống được tổ chức tuần tự để bảo đảm mỗi tầng nhận đúng kiểu dữ liệu mà mô hình tương ứng yêu cầu. Mỗi khung hình từ webcam được đưa vào MediaPipe Holistic để trích xuất toàn bộ 543 landmarks, sau đó ghép thành chuỗi thời gian để mô hình TFLite (Kaggle ASL Signs) suy luận nhãn ký hiệu. Chuỗi từ thô tiếp tục được xử lý bởi mô-đun ngôn ngữ để tạo câu tiếng Việt, trước khi chuyển sang mô hình dịch Việt -- Lào.
+
+\subsubsection{Các bước xử lý chính}
+\begin{itemize}
+    \item Thu nhận video từ webcam theo thời gian thực.
+    \item Trích xuất keypoints pose, tay trái và tay phải.
+    \item Gom cửa sổ trượt theo số frame cố định.
+    \item Suy luận nhãn ký hiệu và đẩy vào buffer từ vựng.
+    \item Ghép buffer thành câu tiếng Việt.
+    \item Dịch câu tiếng Việt sang tiếng Lào.
+\end{itemize}
+
+Định dạng dữ liệu thay đổi rõ rệt qua từng bước. Ở đầu vào, dữ liệu là ảnh màu có kích thước phụ thuộc webcam. Sau MediaPipe, mỗi frame trở thành ma trận \texttt{543 x 3}. Sau tầng nhận diện, dữ liệu được rút gọn thành nhãn ký hiệu như \texttt{hello} hoặc \texttt{drink}. Sau tầng adapter, nhãn này được ánh xạ sang token tiếng Việt như \texttt{xin\_chao} hoặc \texttt{uong\_nuoc}. Sau tầng NLP, token trở thành câu tiếng Việt hoàn chỉnh. Sau tầng dịch, câu được chuyển sang tiếng Lào.
+
+Việc mô tả rõ các định dạng trung gian là cần thiết vì đây là điểm dễ phát sinh lỗi khi tích hợp. Ví dụ, mô hình nhận diện trả nhãn tiếng Anh theo bộ ASL-250, trong khi mô-đun tiếng Việt yêu cầu token tiếng Việt đã chuẩn hóa. Do đó, hệ thống cần một lớp adapter ánh xạ từ ASL label sang token mà mô-đun NLP hiểu được.
+

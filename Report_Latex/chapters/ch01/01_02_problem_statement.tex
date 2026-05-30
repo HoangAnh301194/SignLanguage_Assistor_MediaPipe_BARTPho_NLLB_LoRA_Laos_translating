@@ -1,0 +1,12 @@
+﻿\subsection{Phát biểu bài toán}
+
+Bài toán trung tâm của đề tài là xây dựng một hệ thống có khả năng tiếp nhận chuỗi khung hình từ webcam, nhận diện các đơn vị ký hiệu, biến chuỗi từ thô thành câu tiếng Việt có ngữ pháp và tiếp tục dịch sang tiếng Lào. Như vậy, đầu vào của hệ thống là dữ liệu video theo thời gian thực, còn đầu ra là văn bản ở hai tầng: câu tiếng Việt đã được phục hồi và câu tiếng Lào tương ứng.
+
+Về mặt hình thức, pipeline có thể được mô tả như sau:
+\[
+\text{Video} \rightarrow \text{Landmarks} \rightarrow \text{Gloss} \rightarrow \text{Câu tiếng Việt} \rightarrow \text{Câu tiếng Lào}.
+\]
+Ở bước đầu, video RGB được chuyển thành chuỗi landmarks bằng MediaPipe Holistic. Chuỗi landmarks sau đó được đưa vào mô hình nhận diện để dự đoán gloss hoặc nhãn từ vựng. Các gloss này chưa phải là câu tự nhiên, nên cần mô-đun NLP để bổ sung trật tự từ, dấu câu và các thành phần ngữ pháp. Cuối cùng, câu tiếng Việt được đưa vào mô hình dịch máy Việt -- Lào.
+
+Khó khăn của bài toán đến từ cả dữ liệu thị giác lẫn dữ liệu ngôn ngữ. Ở tầng thị giác, kết quả nhận diện chịu ảnh hưởng của góc quay, ánh sáng, tốc độ ký hiệu, che khuất bàn tay và sự khác biệt giữa từng người ký hiệu. Ở tầng ngôn ngữ, chuỗi gloss thường ngắn, thiếu hư từ và không tuân theo đầy đủ ngữ pháp tiếng Việt. Ở tầng dịch máy, mô hình phải bảo toàn đúng nghĩa của câu tiếng Việt trong khi tiếng Lào là ngôn ngữ ít tài nguyên hơn nhiều cặp dịch phổ biến. Ngoài ra, đây là bài toán đa giai đoạn, nên sai số của mô-đun trước có thể lan truyền và làm giảm chất lượng của mô-đun sau.
+

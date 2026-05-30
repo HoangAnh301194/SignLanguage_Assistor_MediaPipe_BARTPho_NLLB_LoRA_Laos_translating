@@ -1,0 +1,12 @@
+﻿\subsection{Phạm vi nghiên cứu}
+
+Phạm vi của đề tài được xác định rõ để phù hợp với dữ liệu, tài nguyên tính toán và thời gian thực hiện. Hệ thống trong giai đoạn này tập trung vào bài toán nhận diện theo từ hoặc cụm từ ngắn, sau đó thực hiện khôi phục câu và dịch ở mức câu đơn hoặc câu có cấu trúc tương đối ngắn.
+
+\begin{itemize}
+    \item Mô-đun nhận diện sử dụng mô hình TFLite pre-trained từ cuộc thi Kaggle ASL Signs với 250 lớp từ vựng ASL, chưa phải mô hình VSL thuần được huấn luyện lại từ dữ liệu người Việt.
+    \item Mô-đun khôi phục câu tiếng Việt tập trung vào các chuỗi gloss ngắn, các mẫu giao tiếp cơ bản và các câu có cấu trúc tương đối rõ ràng.
+    \item Mô-đun dịch Việt -- Lào sử dụng mô hình NLLB-200 Distilled 600M kết hợp LoRA, đánh giá trên cặp câu song ngữ đã chia sẵn trong repository.
+    \item Hệ thống demo ưu tiên một người dùng, một webcam, điều kiện nền tương đối đơn giản và khoảng cách quay phù hợp để MediaPipe phát hiện được tay.
+    \item Các nội dung như nhận diện hội thoại ký hiệu liên tục dài, nhiều người xuất hiện đồng thời, triển khai mobile, phát giọng nói đầu ra và hội thoại hai chiều chưa thuộc phạm vi chính của phiên bản hiện tại.
+\end{itemize}
+

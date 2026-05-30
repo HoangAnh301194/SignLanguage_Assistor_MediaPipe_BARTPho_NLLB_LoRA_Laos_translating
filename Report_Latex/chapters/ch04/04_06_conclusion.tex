@@ -1,0 +1,8 @@
+﻿\subsection{Kết luận đề tài}
+
+Đề tài đã hiện thực hóa được một pipeline đa mô-đun cho bài toán hỗ trợ giao tiếp bằng ngôn ngữ ký hiệu, gồm ba tầng chính: nhận diện ký hiệu từ webcam, khôi phục câu tiếng Việt từ chuỗi gloss/token và dịch câu tiếng Việt sang tiếng Lào. Cách tiếp cận này chứng minh tính khả thi của việc kết hợp thị giác máy tính, xử lý ngôn ngữ tự nhiên và dịch máy trong cùng một hệ thống ứng dụng.
+
+Ở tầng nhận diện, hệ thống tích hợp thành công mô hình TFLite pre-trained từ Kaggle ASL Signs với MediaPipe Holistic, sử dụng toàn bộ 543 landmarks và cơ chế cửa sổ trượt 16--60 frame. Nhóm đã bổ sung công cụ đánh giá để tính Top-k Accuracy, Precision, Recall, F1 và confusion matrix khi có tập kiểm thử gán nhãn; trong snapshot hiện tại chỉ công bố latency TFLite vì chưa có test manifest nhận diện riêng. Ở tầng tiếng Việt, hệ thống sử dụng kiến trúc lai gồm rule, BARTpho và fallback để chuyển chuỗi token thành câu tiếng Việt hoàn chỉnh. Kết quả đánh giá trên tập test của mô-đun tiếng Việt cho thấy các metric đạt mức rất cao trong miền dữ liệu được thiết kế. Ở tầng dịch, hệ thống tích hợp NLLB-200 Distilled 600M với adapter LoRA cho cặp Việt -- Lào; tài liệu \texttt{vilo.pdf} ghi nhận Train loss = 4,67, Validation loss = 1,06 và BLEU = 23,57.
+
+Về mặt học thuật, đề tài giúp hệ thống hóa quy trình xây dựng một ứng dụng AI nhiều tầng, trong đó mỗi mô hình có vai trò, dữ liệu và metric đánh giá riêng. Về mặt ứng dụng, project tạo được nguyên mẫu có thể chạy demo từ webcam, có cơ chế buffer token và có khả năng bật/tắt tầng dịch tùy theo tài nguyên máy. Những kết quả này đáp ứng mục tiêu ban đầu của đề tài ở mức nguyên mẫu nghiên cứu và là nền tảng để mở rộng thành hệ thống thực tế hơn trong tương lai.
+

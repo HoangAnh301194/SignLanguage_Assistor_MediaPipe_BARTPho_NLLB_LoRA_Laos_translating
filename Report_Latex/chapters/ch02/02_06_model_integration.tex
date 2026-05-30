@@ -1,0 +1,10 @@
+﻿\subsection{Cơ chế tích hợp giữa ba mô hình}
+
+Việc tích hợp ba mô hình là nội dung quan trọng của đề tài vì chất lượng hệ thống không chỉ phụ thuộc vào từng mô-đun riêng lẻ mà còn phụ thuộc vào cách chúng truyền dữ liệu cho nhau. Trong project hiện tại, điểm ghép nối giữa các mô-đun được thiết kế theo kiểu dữ liệu trung gian đơn giản, dễ kiểm tra bằng mắt và dễ ghi log.
+
+Tầng nhận diện trả về danh sách top-k nhãn ký hiệu kèm xác suất. Người dùng hoặc chương trình chọn nhãn phù hợp để đưa vào bộ đệm token. Vì mô hình nhận diện hiện tại là ASL-250, hệ thống cần bảng ánh xạ \texttt{ASL\_TO\_VI\_TOKEN} để chuyển nhãn tiếng Anh sang token tiếng Việt nội bộ. Ví dụ, nhãn \texttt{hello} được ánh xạ thành \texttt{xin\_chao}; nhãn \texttt{drink} có thể được ánh xạ thành token liên quan đến nhu cầu uống nước. Lớp ánh xạ này đóng vai trò adapter giữa miền thị giác ASL và miền NLP tiếng Việt.
+
+Tầng khôi phục câu nhận bộ đệm token đã chuẩn hóa. Khi người dùng xác nhận, bộ đệm được nối thành chuỗi đầu vào cho \texttt{SentenceBuilder}. Kết quả sinh ra là một câu tiếng Việt đã viết hoa và có dấu câu. Câu này tiếp tục được chuyển sang mô-đun dịch Việt -- Lào. Nếu tắt tùy chọn dịch để chạy nhẹ hơn, pipeline vẫn hiển thị câu tiếng Việt và bỏ qua tầng NLLB.
+
+Để giảm lỗi dây chuyền, hệ thống áp dụng một số chiến lược thực dụng: chỉ gom frame khi MediaPipe phát hiện tay, chỉ dự đoán khi đủ số frame tối thiểu, hiển thị top-k thay vì chỉ một nhãn, cho phép người dùng xác nhận token trước khi ghép câu và có chế độ chạy không tải mô hình dịch. Các cơ chế này không loại bỏ hoàn toàn sai số nhưng giúp quá trình demo ổn định hơn, đồng thời giúp xác định rõ lỗi xuất hiện ở tầng nhận diện, tầng ghép câu hay tầng dịch.
+

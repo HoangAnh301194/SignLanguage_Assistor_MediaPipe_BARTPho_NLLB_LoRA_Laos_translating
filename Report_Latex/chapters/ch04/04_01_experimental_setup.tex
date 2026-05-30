@@ -1,0 +1,29 @@
+﻿\subsection{Thiết lập thực nghiệm}
+
+Thiết lập thực nghiệm cần được mô tả rõ để các kết quả đánh giá được hiểu đúng bối cảnh. Do hệ thống gồm ba mô-đun có bản chất khác nhau, phần đánh giá được tách thành bốn nhóm: nhận diện ký hiệu, khôi phục câu tiếng Việt, dịch Việt -- Lào và đánh giá tích hợp end-to-end.
+
+Trong snapshot hiện tại, mô-đun nhận diện sử dụng mô hình TFLite pre-trained nên không có log huấn luyện riêng trong repository. Nhóm bổ sung script đánh giá riêng để đo latency và tính Top-k Accuracy, Precision, Recall, F1 khi có tập landmarks/video gán nhãn; tuy nhiên workspace hiện chưa có test manifest gán nhãn cho tầng nhận diện nên không công bố số accuracy/F1 tự suy diễn. Mô-đun khôi phục câu tiếng Việt có báo cáo đánh giá trên tập test của bộ dữ liệu VSL Vietnamese NLP. Mô-đun dịch Việt -- Lào có dữ liệu train/validation/test và adapter LoRA; các chỉ số Train loss, Validation loss và BLEU được trích từ tài liệu \texttt{vilo.pdf}. Các metric chrF và TER chưa thấy số liệu truy vết trong workspace nên không được tự suy diễn.
+
+\begin{table}[H]
+\centering
+\caption{Môi trường và dữ liệu dùng trong thực nghiệm}
+\label{tab:experiment-setup}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Thành phần} & \textbf{Mô tả} \\
+\hline
+Thiết bị demo & Máy tính Windows có webcam; mô-đun nhận diện chạy bằng TensorFlow Lite/MediaPipe trên CPU trong chế độ demo. \\
+\hline
+Mô-đun nhận diện & Mô hình \texttt{model.tflite} từ Kaggle ASL Signs, 250 lớp, đầu vào 543 landmarks x 3 tọa độ, cửa sổ 16--60 frame. \\
+\hline
+Mô-đun tiếng Việt & BARTpho kết hợp rule/fallback; dữ liệu chính gồm 32.755 cặp gloss -- câu tiếng Việt, chia train/validation/test. \\
+\hline
+Mô-đun dịch & NLLB-200 Distilled 600M kết hợp adapter LoRA; dữ liệu song ngữ Việt -- Lào gồm 100.000 cặp câu, chia 90.000/5.000/5.000. \\
+\hline
+Thư viện chính & Python, OpenCV, MediaPipe, TensorFlow Lite, PyTorch, Transformers, PEFT, SentencePiece. \\
+\hline
+\end{tabularx}
+\end{table}
+
+Để tránh trộn lẫn kết quả giữa các tầng, mỗi mô-đun được đánh giá theo đúng đầu vào chuẩn của nó. Tầng nhận diện được đánh giá bằng latency TFLite và quan sát webcam; Top-k Accuracy, Macro F1 và confusion matrix được xác định là metric bắt buộc khi có tập video/landmark gán nhãn riêng. Tầng tiếng Việt được đánh giá bằng loss, perplexity, Exact Match, BLEU, ROUGE-L, chrF và Token F1. Tầng dịch được đề xuất đánh giá bằng BLEU, chrF, TER và kiểm tra thủ công về adequacy/fluency. Đánh giá end-to-end tập trung vào độ đúng của câu cuối cùng, độ trễ và khả năng vận hành ổn định khi chạy liên tục.
+

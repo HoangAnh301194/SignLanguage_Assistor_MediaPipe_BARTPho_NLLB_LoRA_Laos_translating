@@ -1,0 +1,24 @@
+﻿\subsection{Yêu cầu chức năng và phi chức năng}
+
+Trước khi đi vào cài đặt, hệ thống cần được đặc tả bằng các yêu cầu chức năng và phi chức năng. Việc đặc tả rõ ràng giúp liên hệ trực tiếp giữa mục tiêu nghiên cứu ở Chương 1 và phần hiện thực phần mềm ở Chương 3.
+
+\subsubsection{Yêu cầu chức năng}
+\begin{itemize}
+    \item Nhận video từ webcam theo thời gian thực.
+    \item Nhận diện ký hiệu và hiển thị kết quả dự đoán.
+    \item Lưu buffer từ vựng và ghép thành câu tiếng Việt.
+    \item Dịch câu tiếng Việt sang tiếng Lào.
+    \item Cho phép xóa buffer, xác nhận câu và thoát chương trình.
+\end{itemize}
+
+\subsubsection{Yêu cầu phi chức năng}
+\begin{itemize}
+    \item Thời gian phản hồi đủ nhanh để demo trực tiếp.
+    \item Hệ thống dễ mở rộng thêm lớp ký hiệu và thêm ngôn ngữ đích.
+    \item Cấu trúc code tách mô-đun để dễ bảo trì.
+    \item Có khả năng chạy ở chế độ giảm tải khi không muốn nạp mô hình dịch lớn.
+    \item Có cơ chế fallback để tầng NLP vẫn sinh được câu tối thiểu khi mô hình sinh chưa sẵn sàng.
+\end{itemize}
+
+Các yêu cầu này dẫn đến lựa chọn thiết kế mô-đun hóa: nhận diện, ghép câu và dịch máy được giữ thành các khối độc lập, có thể kiểm thử riêng trước khi tích hợp. Đây cũng là lý do project có cả script kiểm thử dạng dòng lệnh và script realtime dùng webcam.
+

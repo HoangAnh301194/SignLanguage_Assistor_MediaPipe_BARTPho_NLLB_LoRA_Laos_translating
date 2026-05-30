@@ -1,0 +1,15 @@
+﻿\subsection{Phân tích use case}
+
+Phần use case giúp liên kết bài toán kỹ thuật với hành vi sử dụng thực tế của người dùng. Đối với đề tài này, actor chính là người vận hành hệ thống hoặc người dùng cần thực hiện nhận diện và dịch ngôn ngữ ký hiệu.
+
+\begin{enumerate}
+    \item \textbf{Khởi động hệ thống và webcam}: người vận hành chạy chương trình realtime, hệ thống nạp MediaPipe, mô hình TFLite và các cấu hình cần thiết.
+    \item \textbf{Thực hiện ký hiệu}: người dùng đưa tay vào khung hình và thực hiện ký hiệu. Hệ thống trích xuất landmarks, duy trì bộ đệm frame và hiển thị top-k nhãn dự đoán.
+    \item \textbf{Xác nhận token}: khi nhãn hiện tại phù hợp, người vận hành thêm nhãn đó vào buffer token. Bước này giúp giảm tác động của các dự đoán nhiễu.
+    \item \textbf{Sinh câu và dịch}: khi buffer đã đủ nội dung, người vận hành yêu cầu hệ thống ghép thành câu tiếng Việt và dịch sang tiếng Lào nếu mô hình dịch đang bật.
+    \item \textbf{Xóa buffer hoặc bắt đầu lại}: nếu nhận diện sai hoặc người dùng muốn nhập câu mới, hệ thống cho phép xóa buffer token và reset bộ đệm frame.
+    \item \textbf{Kết thúc phiên làm việc}: người vận hành thoát chương trình, giải phóng camera và đóng cửa sổ hiển thị.
+\end{enumerate}
+
+Luồng use case trên phản ánh đúng hiện trạng triển khai: hệ thống chưa tự động quyết định toàn bộ câu dài liên tục, mà có bước xác nhận token để tăng độ ổn định trong demo. Đây là lựa chọn phù hợp với giai đoạn nguyên mẫu vì người dùng vẫn kiểm soát được đầu vào của tầng NLP và tầng dịch.
+

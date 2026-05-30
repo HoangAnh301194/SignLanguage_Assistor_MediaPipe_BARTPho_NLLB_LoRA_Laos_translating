@@ -1,0 +1,25 @@
+﻿{
+  "benchmark": [
+    {
+      "sequence_length": 16,
+      "runs": 30,
+      "latency_mean_ms": 13.262740000209305,
+      "latency_p95_ms": 16.57156999899598,
+      "fps_equivalent": 75.39920106887556
+    },
+    {
+      "sequence_length": 32,
+      "runs": 30,
+      "latency_mean_ms": 26.255586667442305,
+      "latency_p95_ms": 36.906384998655994,
+      "fps_equivalent": 38.087132185091455
+    },
+    {
+      "sequence_length": 60,
+      "runs": 30,
+      "latency_mean_ms": 44.91840333381939,
+      "latency_p95_ms": 49.91970000119181,
+      "fps_equivalent": 22.26259006956048
+    }
+  ]
+}

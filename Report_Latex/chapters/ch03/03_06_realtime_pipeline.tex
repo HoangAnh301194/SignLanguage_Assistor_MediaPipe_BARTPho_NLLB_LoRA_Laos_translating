@@ -1,0 +1,17 @@
+﻿\subsection{Tích hợp pipeline thời gian thực}
+
+Sau khi từng mô-đun hoạt động độc lập, bước tiếp theo là ghép chúng thành một pipeline thời gian thực. Trong repository hiện tại, script \texttt{realtime\_integrated.py} đảm nhiệm vai trò điều phối: gọi mô-đun nhận diện theo luồng webcam, quản lý token buffer, gọi mô-đun ghép câu tiếng Việt và tùy chọn gọi mô-đun dịch Việt -- Lào.
+
+Vòng lặp realtime gồm các bước chính:
+\begin{enumerate}
+    \item đọc frame từ webcam và đưa qua mô-đun nhận diện ASL-250;
+    \item hiển thị top-k dự đoán hiện tại để người vận hành quan sát;
+    \item khi nhấn \texttt{a}, lấy top-1 prediction hiện tại, ánh xạ sang token tiếng Việt và thêm vào buffer;
+    \item khi nhấn \texttt{b}, gửi buffer sang \texttt{SentenceBuilder} để sinh câu tiếng Việt, sau đó dịch sang tiếng Lào nếu không chạy ở chế độ \texttt{--no-translation};
+    \item khi nhấn \texttt{c}, xóa token buffer để bắt đầu câu mới;
+    \item khi nhấn \texttt{SPACE}, reset bộ đệm frame của mô-đun nhận diện;
+    \item khi nhấn \texttt{q}, thoát chương trình và giải phóng camera.
+\end{enumerate}
+
+Thiết kế này có ưu điểm là đơn giản, dễ quan sát và phù hợp cho demo học thuật. Người vận hành có thể kiểm soát thời điểm thêm token, thời điểm ghép câu và thời điểm dịch, nhờ đó giảm rủi ro do mô hình nhận diện nhảy nhãn trong vài frame ngắn. Khi mô hình dịch chưa được tải hoặc máy không đủ tài nguyên, tùy chọn \texttt{--no-translation} giúp kiểm thử hai tầng đầu mà không làm gián đoạn toàn bộ pipeline.
+

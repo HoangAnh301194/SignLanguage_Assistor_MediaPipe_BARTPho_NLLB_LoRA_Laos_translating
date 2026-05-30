@@ -1,0 +1,10 @@
+﻿\subsection{Kiến trúc tổng thể hệ thống}
+
+Hệ thống được thiết kế theo kiến trúc pipeline nhiều tầng, trong đó đầu ra của mô-đun trước là đầu vào của mô-đun sau. Cấu trúc này phù hợp với bản chất của bài toán vì dữ liệu biến đổi tuần tự từ tín hiệu thị giác sang biểu diễn từ vựng, sau đó sang câu tiếng Việt hoàn chỉnh và cuối cùng sang câu tiếng Lào.
+
+Về tổng thể, hệ thống gồm năm khối chính. Khối thu nhận video đọc khung hình từ webcam và chuyển đổi sang định dạng phù hợp cho MediaPipe. Khối nhận diện ký hiệu trích xuất landmarks, duy trì cửa sổ trượt theo thời gian và dự đoán nhãn ký hiệu bằng mô hình TFLite. Khối khôi phục câu tiếng Việt nhận chuỗi token/gloss, áp dụng rule hoặc mô hình BARTpho để sinh câu tiếng Việt tự nhiên. Khối dịch máy sử dụng NLLB-200 Distilled 600M kết hợp adapter LoRA để dịch câu tiếng Việt sang tiếng Lào. Cuối cùng, khối giao diện hiển thị video, nhãn dự đoán, buffer token, câu tiếng Việt và câu tiếng Lào.
+
+Quan hệ giữa các mô-đun là quan hệ phụ thuộc một chiều. Nếu tầng nhận diện không phát hiện được gloss đúng, tầng NLP sẽ nhận đầu vào sai và có thể sinh câu sai nghĩa. Nếu câu tiếng Việt được khôi phục chưa tốt, mô-đun dịch sẽ tiếp tục khuếch đại lỗi này sang tiếng Lào. Vì vậy, kiến trúc hệ thống không chỉ cần mô hình mạnh ở từng tầng mà còn cần các cơ chế trung gian như ánh xạ nhãn, bộ đệm token, ngưỡng tin cậy và thao tác xác nhận của người dùng.
+
+Hệ thống hỗ trợ hai chế độ vận hành. Chế độ offline/smoke test cho phép nhập token thủ công để kiểm tra riêng tầng NLP và dịch máy. Chế độ realtime dùng webcam để chạy toàn bộ pipeline từ video đến văn bản. Việc tách hai chế độ này giúp kiểm thử thuận tiện hơn: khi một tầng có lỗi, có thể cô lập tầng đó mà không cần chạy lại toàn bộ hệ thống.
+

@@ -1,0 +1,233 @@
+﻿\subsection{Đánh giá mô hình nhận diện ký hiệu}
+
+Mô-đun nhận diện là tầng đầu tiên của toàn bộ pipeline nên mọi sai số ở đây đều có thể lan xuống mô-đun
+ghép câu và mô-đun dịch. Vì mô hình hiện tại là một mô hình pre-trained (TFLite từ cuộc thi Kaggle
+ASL Signs), cách đánh giá sẽ khác so với một mô hình tự huấn luyện: nhóm không có quá trình
+training/validation thông thường, mà tập trung vào đánh giá chất lượng suy luận thực tế.
+
+\subsubsection{Các metric có thể đánh giá}
+
+Mặc dù mô hình nhận diện trong đề tài là mô hình pre-trained, mô-đun này vẫn cần được đánh giá như
+một bộ phân loại đa lớp. Điểm khác biệt là nhóm không báo cáo loss huấn luyện hay validation loss do
+không huấn luyện lại mô hình; thay vào đó, phần đánh giá tập trung vào chất lượng dự đoán trên tập
+kiểm thử gán nhãn và tốc độ suy luận. Các metric phù hợp bao gồm:
+\begin{itemize}
+    \item \textbf{Top-1 Accuracy}: tỉ lệ dự đoán đúng nhãn ký hiệu trên tập kiểm thử;
+    \item \textbf{Top-3/Top-5 Accuracy}: tỉ lệ nhãn đúng nằm trong top-k dự đoán;
+    \item \textbf{Macro Precision, Macro Recall, Macro F1}: đánh giá cân bằng theo từng lớp, tránh việc
+    một vài lớp xuất hiện nhiều làm sai lệch kết quả chung;
+    \item \textbf{Weighted F1}: F1 có trọng số theo số mẫu của từng lớp;
+    \item \textbf{Confusion matrix}: ma trận nhầm lẫn giữa các lớp ký hiệu;
+    \item \textbf{Average inference time}: thời gian suy luận trung bình trên mỗi chuỗi landmarks;
+    \item \textbf{FPS}: số khung hình xử lý được trong một giây, quan trọng cho demo realtime;
+    \item \textbf{Đánh giá định tính}: quan sát trực tiếp khi sử dụng webcam.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Ý nghĩa của các metric cho mô-đun nhận diện}
+\label{tab:recognition-metric-meanings}
+\begin{tabularx}{\textwidth}{|p{3cm}|X|X|}
+\hline
+\textbf{Metric} & \textbf{Ý nghĩa} & \textbf{Cách diễn giải} \\
+\hline
+Top-1 Accuracy & Tỉ lệ mẫu có lớp dự đoán cao nhất trùng đúng nhãn thật. & Càng cao càng tốt; là chỉ số chính của bài toán phân loại. \\
+\hline
+Top-3 Accuracy & Tỉ lệ mẫu mà nhãn thật xuất hiện trong 3 dự đoán cao nhất. & Hữu ích khi số lớp lớn và nhiều dấu hiệu gần nhau. \\
+\hline
+Top-5 Accuracy & Tỉ lệ mẫu mà nhãn thật xuất hiện trong 5 dự đoán cao nhất. & Cho thấy mô hình có ``nhìn ra'' vùng ứng viên đúng hay không. \\
+\hline
+Macro F1 & Trung bình F1 theo từng lớp ký hiệu. & Phù hợp khi muốn xem mô hình có công bằng giữa các lớp hay không. \\
+\hline
+Confusion matrix & Bảng đếm nhãn thật và nhãn dự đoán. & Dùng để phát hiện các cặp ký hiệu dễ bị nhầm. \\
+\hline
+Latency / FPS & Tốc độ suy luận trên mỗi mẫu hoặc theo khung hình. & Quyết định khả năng dùng trong realtime demo. \\
+\hline
+\end{tabularx}
+\end{table}
+
+Với tập kiểm thử gồm $N$ mẫu, nhãn thật $y_i$ và danh sách dự đoán top-k là $\hat{Y}_{i,k}$, các chỉ số
+Top-k Accuracy được tính như sau:
+\[
+    TopK = \frac{1}{N}\sum_{i=1}^{N}\mathbf{1}(y_i \in \hat{Y}_{i,k})
+\]
+
+Precision, Recall và F1 theo từng lớp được tính từ số lượng true positive ($TP$), false positive ($FP$)
+và false negative ($FN$):
+\[
+    Precision = \frac{TP}{TP + FP}, \quad
+    Recall = \frac{TP}{TP + FN}, \quad
+    F1 = \frac{2 \times Precision \times Recall}{Precision + Recall}
+\]
+
+\subsubsection{Bối cảnh mô hình pre-trained}
+
+Cần nhấn mạnh rằng mô hình TFLite trong dự án là giải pháp đạt giải nhất cuộc thi Kaggle
+\textit{Google -- Isolated Sign Language Recognition}. Cuộc thi này có hơn 1.000 đội tham gia
+và đánh giá trên dữ liệu kiểm thử chính thức của Kaggle. Vì vậy, chất lượng của mô hình đã được
+kiểm chứng ở quy mô cạnh tranh quốc tế.
+
+Tuy nhiên, kết quả trong cuộc thi Kaggle được đo trên dữ liệu landmarks đã chuẩn bị sẵn, trong khi
+pipeline thực tế của dự án phải trích xuất landmarks từ webcam theo thời gian thực. Điều này có thể
+tạo ra chênh lệch giữa chất lượng offline (trên dữ liệu Kaggle) và chất lượng online (trên webcam
+thực tế), do:
+\begin{itemize}
+    \item chất lượng camera, ánh sáng và nền ảnh hưởng đến độ chính xác của MediaPipe;
+    \item tốc độ ký hiệu và khoảng cách tới camera có thể khác so với điều kiện trong dữ liệu
+    huấn luyện;
+    \item một số từ vựng trong 250 lớp có thể gần nhau về hình thức, dễ gây nhầm.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Thông tin tham chiếu từ cuộc thi Kaggle ASL Signs}
+\label{tab:kaggle-asl-reference}
+\begin{tabularx}{\textwidth}{|X|c|}
+\hline
+\textbf{Thuộc tính} & \textbf{Giá trị} \\
+\hline
+Tên cuộc thi & Google -- Isolated Sign Language Recognition \\
+\hline
+Số lớp từ vựng & 250 \\
+\hline
+Nguồn mô hình & Giải pháp đạt giải nhất (1st place solution) \\
+\hline
+Định dạng & TensorFlow Lite (.tflite) \\
+\hline
+Kích thước mô hình & $\sim$11 MB \\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Công cụ đánh giá định lượng}
+
+Để phần nhận diện không chỉ dừng ở mức ``chạy mô hình pre-trained'', nhóm bổ sung script
+\codepath{external/asl_baseline/evaluate_asl_250.py}. Script này có hai chế độ:
+\begin{itemize}
+    \item \textbf{benchmark-only}: đo thời gian suy luận của mô hình TFLite trên tensor landmarks giả lập
+    có đúng kích thước đầu vào \texttt{N x 543 x 3};
+    \item \textbf{manifest evaluation}: đọc file CSV gồm hai cột \texttt{path,label}, chạy suy luận trên
+    các file landmarks \texttt{.npy}/\texttt{.npz}, sau đó xuất Top-1, Top-3, Top-5 Accuracy, Macro
+    Precision, Macro Recall, Macro F1, Weighted F1, latency và confusion matrix.
+\end{itemize}
+
+Lệnh benchmark tốc độ đã dùng trong snapshot này:
+\begin{verbatim}
+venv\Scripts\python.exe external\google-asl-250\evaluate_asl_250.py ^
+  --benchmark-only --runs 30 --warmup 5
+\end{verbatim}
+
+Khi có tập kiểm thử landmarks gán nhãn, lệnh đánh giá phân loại có dạng:
+\begin{verbatim}
+venv\Scripts\python.exe external\google-asl-250\evaluate_asl_250.py ^
+  --manifest test_manifest.csv --output-dir external\google-asl-250\eval_results
+\end{verbatim}
+
+\begin{table}[H]
+\centering
+\caption{Kết quả benchmark suy luận TFLite của mô-đun nhận diện}
+\label{tab:recognition-latency-benchmark}
+\begin{tabularx}{\textwidth}{|c|c|c|c|}
+\hline
+\textbf{Độ dài chuỗi} & \textbf{Mean latency (ms)} & \textbf{P95 latency (ms)} & \textbf{FPS tương đương} \\
+\hline
+16 frame & 13,26 & 16,57 & 75,40 \\
+\hline
+32 frame & 26,26 & 36,91 & 38,09 \\
+\hline
+60 frame & 44,92 & 49,92 & 22,26 \\
+\hline
+\end{tabularx}
+\end{table}
+
+Các số liệu trong Bảng~\ref{tab:recognition-latency-benchmark} chỉ đo phần suy luận TFLite trên CPU,
+chưa bao gồm thời gian đọc webcam, tiền xử lý ảnh và trích xuất landmarks bằng MediaPipe. Tuy vậy, kết
+quả này cho thấy riêng mô hình phân loại đủ nhanh để phục vụ demo realtime, vì trong code hiện tại mô
+hình chỉ được gọi mỗi 8 frame thay vì gọi ở mọi frame.
+
+\begin{table}[H]
+\centering
+\caption{Trạng thái các metric phân loại của mô-đun nhận diện trong snapshot hiện tại}
+\label{tab:recognition-classification-status}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3.2cm}|X|}
+\hline
+\textbf{Metric} & \textbf{Trạng thái} & \textbf{Ghi chú} \\
+\hline
+Top-1 Accuracy & Chưa công bố số & Cần tập kiểm thử landmarks/video có nhãn thật. Repository hiện chỉ có mô hình pre-trained và label map, chưa có test manifest cho recognition. \\
+\hline
+Top-3 / Top-5 Accuracy & Chưa công bố số & Script đã hỗ trợ tính tự động khi có dữ liệu gán nhãn. \\
+\hline
+Macro Precision / Recall / F1 & Chưa công bố số & Không thể tính đúng nếu thiếu \texttt{y\_true}. Việc tự đưa số khi chưa có tập test sẽ không có giá trị học thuật. \\
+\hline
+Confusion matrix & Chưa công bố bảng & Sẽ được xuất ra file \texttt{recognition\_confusion\_matrix.csv} khi chạy đánh giá với manifest gán nhãn. \\
+\hline
+Latency / FPS & Đã đo & Có số liệu benchmark TFLite trong Bảng~\ref{tab:recognition-latency-benchmark}. \\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Đánh giá thực nghiệm qua demo realtime}
+
+Vì snapshot hiện tại chưa có tập test nhận diện riêng, phần đánh giá thực nghiệm qua webcam được dùng
+để kiểm tra khả năng vận hành thực tế của pipeline. Đây không thay thế cho Top-k Accuracy hay F1, nhưng
+có giá trị bổ sung vì pipeline thật phải đi qua camera, MediaPipe và cửa sổ trượt thời gian. Các tiêu
+chí đánh giá bao gồm:
+\begin{itemize}
+    \item mô hình có nhận đúng các từ vựng phổ biến như \texttt{hello}, \texttt{drink},
+    \texttt{food}, \texttt{please}, \texttt{thankyou} hay không;
+    \item mô hình phản hồi nhanh bao lâu sau khi người dùng bắt đầu ký hiệu;
+    \item mô hình có ổn định (không nhảy liên tục giữa các nhãn) khi người dùng giữ tay
+    trong tư thế;
+    \item mô hình xử lý thế nào khi người dùng chuyển giữa các ký hiệu liên tiếp.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Đánh giá định tính mô-đun nhận diện qua webcam}
+\label{tab:recognition-qualitative}
+\begin{tabularx}{\textwidth}{|X|p{3.2cm}|X|}
+\hline
+\textbf{Kịch bản thử nghiệm} & \textbf{Kết quả} & \textbf{Nhận xét} \\
+\hline
+Ký hiệu từ phổ biến như \texttt{hello}, \texttt{drink} & Hoạt động được trong demo & Các nhãn phổ biến có thể xuất hiện ổn định hơn khi tay nằm rõ trong khung hình và ánh sáng đủ. \\
+\hline
+Ký hiệu liên tiếp nhiều từ & Cần xác nhận từng token & Phiên bản hiện tại phù hợp hơn với cơ chế chọn token/top-1 vào buffer, chưa phải nhận diện câu liên tục hoàn toàn tự động. \\
+\hline
+Điều kiện ánh sáng yếu & Dễ giảm ổn định & MediaPipe có thể mất landmarks tay hoặc pose, kéo theo dự đoán TFLite kém tin cậy. \\
+\hline
+Tốc độ ký hiệu nhanh & Có thể bỏ sót động tác & Cửa sổ trượt cần đủ tối thiểu 16 frame; thao tác quá nhanh làm chuỗi landmarks thiếu ngữ cảnh. \\
+\hline
+Khoảng cách xa camera & Dễ mất chi tiết bàn tay & Khi bàn tay quá nhỏ hoặc bị che, landmarks không ổn định và xác suất dự đoán dao động mạnh. \\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Đánh giá định tính và phân tích lỗi}
+
+Bên cạnh các quan sát trực tiếp, phần nhận diện cần có thêm phân tích lỗi theo các hướng:
+\begin{itemize}
+    \item \textbf{nhầm lớp do động tác gần giống}: nhiều từ khác nhau chỉ lệch hướng cổ tay hoặc biên
+    độ chuyển động;
+    \item \textbf{nhầm do điều kiện ghi hình}: ánh sáng yếu, nền lộn xộn, tay che nhau hoặc ra ngoài
+    khung hình;
+    \item \textbf{nhầm do sự khác biệt signer}: mô hình được huấn luyện trên signer trong dữ liệu
+    Kaggle, có thể chưa khái quát tốt cho người dùng thực tế;
+    \item \textbf{giới hạn 250 từ}: nếu người dùng thực hiện ký hiệu không nằm trong 250 lớp,
+    mô hình sẽ dự đoán sai.
+\end{itemize}
+
+\subsubsection{Lưu ý khi diễn giải kết quả}
+
+Ngay cả khi mô hình nhận diện hoạt động tốt, vẫn cần nhấn mạnh rằng:
+\begin{itemize}
+    \item đây mới là chất lượng ở tầng phân loại gloss, chưa phải chất lượng câu tiếng Việt hay tiếng
+    Lào cuối cùng;
+    \item mô hình được huấn luyện trên dữ liệu ASL, nên kết quả tốt không đồng nghĩa mô hình
+    đã ``hiểu'' trọn vẹn VSL thật trong thực địa;
+    \item cần tách bạch rõ \textit{recognition accuracy}, \textit{sentence quality}
+    và \textit{translation quality}, thay vì gộp chung thành một đánh giá mơ hồ.
+\end{itemize}
+
+Trình bày như vậy vừa chính xác về mặt học thuật, vừa giúp người đọc hiểu đúng đóng góp thật của mô
+hình nhận diện trong toàn bộ hệ thống.
+

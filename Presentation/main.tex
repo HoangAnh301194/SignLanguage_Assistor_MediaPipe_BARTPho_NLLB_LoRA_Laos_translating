@@ -1,0 +1,1005 @@
+﻿\documentclass[aspectratio=169, 11pt]{beamer}
+
+% =========== ENCODING & FONT ===========
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{tabularx}
+
+% =========== COLOR PALETTE ===========
+\definecolor{ptitred}{RGB}{180, 20, 30}
+\definecolor{ptitdarkred}{RGB}{140, 15, 20}
+\definecolor{deepblue}{RGB}{22, 52, 93}
+\definecolor{softgray}{RGB}{245, 247, 250}
+\definecolor{lightred}{RGB}{255, 240, 240}
+\definecolor{accentgold}{RGB}{200, 160, 40}
+\definecolor{textdark}{RGB}{40, 40, 40}
+\definecolor{footergray}{RGB}{100, 100, 100}
+\definecolor{lightgreen}{RGB}{230, 250, 230}
+
+% =========== BEAMER THEME ===========
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+% --- Frame title ---
+\setbeamercolor{frametitle}{fg=white, bg=ptitred}
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamertemplate{frametitle}{%
+    \vspace{2pt}%
+    \begin{beamercolorbox}[wd=\paperwidth, ht=0.8cm, dp=0.25cm, leftskip=0.4cm]{frametitle}%
+        \usebeamerfont{frametitle}\insertframetitle%
+    \end{beamercolorbox}%
+}
+
+% --- Block ---
+\setbeamercolor{block title}{fg=white, bg=deepblue}
+\setbeamercolor{block body}{bg=softgray, fg=textdark}
+\setbeamerfont{block title}{size=\normalsize, series=\bfseries}
+
+\setbeamercolor{block title alerted}{fg=white, bg=ptitred}
+\setbeamercolor{block body alerted}{bg=lightred, fg=textdark}
+
+\setbeamercolor{block title example}{fg=white, bg=deepblue!70!black}
+\setbeamercolor{block body example}{bg=softgray, fg=textdark}
+
+% --- Item ---
+\setbeamercolor{item}{fg=ptitred}
+\setbeamercolor{subitem}{fg=deepblue}
+\setbeamertemplate{itemize item}{\small\raise1pt\hbox{$\bullet$}}
+\setbeamertemplate{itemize subitem}{\scriptsize\raise1pt\hbox{--}}
+
+% --- Footer with slide number and KTĐT1 label ---
+\setbeamertemplate{footline}{%
+    \hbox{%
+        \begin{beamercolorbox}[wd=0.5\paperwidth, ht=0.4cm, dp=0.15cm, leftskip=0.3cm]{footline left}%
+            {\color{footergray}\scriptsize Tháng 5/2026}%
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=0.5\paperwidth, ht=0.4cm, dp=0.15cm, rightskip=0.3cm, right]{footline right}%
+            {\color{ptitred}\scriptsize\bfseries KTĐT1}%
+            \hspace{0.3cm}%
+            {\color{footergray}\scriptsize\insertframenumber/\inserttotalframenumber}%
+        \end{beamercolorbox}%
+    }%
+}
+
+% --- Top bar decoration ---
+\setbeamertemplate{headline}{%
+    \begin{tikzpicture}[overlay]
+        \fill[ptitred] (0, 0) rectangle (\paperwidth, 0.07cm);
+    \end{tikzpicture}%
+}
+
+% =========== DOCUMENT ===========
+\begin{document}
+
+% ========================================
+%  SLIDE 1: BÌA
+% ========================================
+{
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{%
+    \hbox{%
+        \begin{beamercolorbox}[wd=\paperwidth, ht=0.4cm, dp=0.15cm, rightskip=0.3cm, right]{footline right}%
+            {\color{ptitred}\scriptsize\bfseries KTĐT1}%
+        \end{beamercolorbox}%
+    }%
+}
+\begin{frame}[plain]
+\begin{tikzpicture}[overlay, remember picture]
+    % Top red line
+    \fill[ptitred] (current page.north west) rectangle ([yshift=-0.06cm]current page.north east);
+
+    % Logo PTIT left
+    \node[anchor=north west] at ([xshift=0.6cm, yshift=-0.25cm]current page.north west) {%
+        \includegraphics[height=1.3cm]{logoPTIT.png}%
+    };
+
+    % Header text
+    \node[anchor=north, font=\normalsize\bfseries, text=deepblue] at ([yshift=-0.4cm]current page.north) {%
+        Khoa Kĩ thuật điện tử 1%
+    };
+    \node[anchor=north, font=\small, text=deepblue] at ([yshift=-0.95cm]current page.north) {%
+        OpenWorkshop LAB%
+    };
+
+    % Red banner "Báo cáo nghiên cứu"
+    \fill[ptitred] ([yshift=-1.7cm, xshift=2cm]current page.north west)
+        rectangle ([yshift=-2.5cm, xshift=-2cm]current page.north east);
+    \node[font=\Large\bfseries, text=white] at ([yshift=-2.1cm]current page.north) {%
+        Báo cáo nghiên cứu%
+    };
+
+    % Title
+    \node[anchor=north, font=\LARGE\bfseries, text=ptitdarkred, text width=12cm, align=center]
+        at ([yshift=-3.3cm]current page.north) {%
+        Hệ thống hỗ trợ giao tiếp\\[3pt]
+        với người khiếm khuyết%
+    };
+
+    % Student info
+    \node[anchor=north west, font=\normalsize, text=textdark, text width=12cm]
+        at ([xshift=1.5cm, yshift=-5.3cm]current page.north west) {%
+        \textbf{GVHD :}\hspace{2.15cm}TS. Nguyễn Quốc Uy\\[6pt]
+        \textbf{Sinh viên thực hiện :}\hspace{0.5cm}%
+        Nguyễn Hữu Hoàng Anh\\[4pt]
+        \hspace*{4.3cm}Phạm Tuấn Anh\\[4pt]
+        \hspace*{4.3cm}Nguyễn Hoàng Anh\\[6pt]
+        \textbf{Lớp :}\hspace{2.4cm}D23CQDKRB%
+    };
+
+    % Bottom red line
+    \fill[ptitred] ([yshift=0.55cm]current page.south west) rectangle ([yshift=0.6cm]current page.south east);
+\end{tikzpicture}
+\end{frame}
+}
+
+% ========================================
+%  SLIDE 2: MỤC LỤC
+% ========================================
+\begin{frame}{Nội dung trình bày}
+    \tableofcontents
+\end{frame}
+
+% ========================================
+%  PHẦN 1: GIỚI THIỆU BÀI TOÁN
+% ========================================
+\section{Giới thiệu bài toán}
+
+% --- SLIDE 3 ---
+\begin{frame}{Bối cảnh và động lực}
+    \begin{columns}[T]
+        \column{0.58\textwidth}
+        \begin{itemize}
+            \item Cộng đồng người khiếm thính gặp rào cản lớn trong giao tiếp hàng ngày
+            \item Ngôn ngữ ký hiệu (Sign Language) là phương tiện giao tiếp chính, nhưng ít người bình thường hiểu được
+            \item Cần hệ thống ``dịch'' tự động: từ cử chỉ sang văn bản
+            \item Bối cảnh hội nhập ASEAN: mở rộng giao tiếp đa ngôn ngữ (Việt $\rightarrow$ Lào)
+        \end{itemize}
+
+        \column{0.38\textwidth}
+        \begin{alertblock}{Ý nghĩa nhân văn}
+            \small Thu hẹp khoảng cách giao tiếp, giúp người khiếm thính truyền đạt nhu cầu, cảm xúc bằng công nghệ AI.
+        \end{alertblock}
+        \vspace{0.2cm}
+        \begin{block}{Học phần}
+            \small Đồ án cuối kỳ môn \textbf{Học Sâu (Deep Learning)} -- TS. Nguyễn Quốc Uy
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 4 ---
+\begin{frame}{Phát biểu bài toán}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Đầu vào}
+            \begin{itemize}
+                \item Video webcam thời gian thực
+                \item Người dùng thực hiện ký hiệu mức từ
+                \item Điều kiện: nhiễu ánh sáng, góc quay, tốc độ tay, che khuất
+            \end{itemize}
+        \end{block}
+
+        \column{0.48\textwidth}
+        \begin{block}{Đầu ra mong muốn}
+            \begin{itemize}
+                \item Nhãn ký hiệu (gloss) nhận dạng được
+                \item Câu tiếng Việt đã khôi phục ngữ pháp
+                \item Bản dịch tiếng Lào tương đương nghĩa
+            \end{itemize}
+        \end{block}
+    \end{columns}
+
+    \vspace{0.4cm}
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.15cm,
+        box/.style={rectangle, rounded corners=3pt, draw=deepblue, fill=softgray,
+                    minimum width=2.6cm, minimum height=0.7cm, align=center, font=\small},
+        arrow/.style={-Latex, thick, draw=ptitred}
+    ]
+        \node[box] (v) {Video webcam};
+        \node[box, right=of v] (r) {Nhận dạng\\{\scriptsize gloss}};
+        \node[box, right=of r] (n) {Khôi phục\\{\scriptsize câu tiếng Việt}};
+        \node[box, right=of n] (t) {Dịch máy\\{\scriptsize câu tiếng Lào}};
+        \draw[arrow] (v) -- (r);
+        \draw[arrow] (r) -- (n);
+        \draw[arrow] (n) -- (t);
+    \end{tikzpicture}
+\end{frame}
+
+% --- SLIDE 5 ---
+\begin{frame}{Mục tiêu cụ thể của đồ án}
+    \begin{enumerate}
+        \item Tích hợp mô hình nhận diện ký hiệu ASL từ video bằng \textbf{MediaPipe Holistic} và \textbf{mô hình TFLite pre-trained} (Kaggle ASL Signs)
+        \item Xây dựng mô hình hoặc cơ chế khôi phục câu tiếng Việt từ chuỗi gloss đầu ra bằng \textbf{BARTpho}
+        \item Xây dựng mô hình dịch Việt -- Lào bằng \textbf{NLLB-200 + LoRA}
+        \item Tích hợp ba mô-đun thành \textbf{hệ thống chạy thử thời gian thực}
+    \end{enumerate}
+
+    \vspace{0.3cm}
+    \begin{alertblock}{Lưu ý quan trọng}
+        \small Đây là \textbf{prototype nghiên cứu}, chưa phải sản phẩm thương mại. Mục tiêu là chứng minh khả năng nối 3 tầng AI khác nhau thành pipeline hoạt động.
+    \end{alertblock}
+\end{frame}
+
+% ========================================
+%  PHẦN 2: KIẾN TRÚC HỆ THỐNG
+% ========================================
+\section{Kiến trúc hệ thống}
+
+% --- SLIDE 6 ---
+\begin{frame}{Kiến trúc tổng thể -- Pipeline 3 tầng}
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.5cm,
+        box/.style={rectangle, rounded corners=4pt, draw=deepblue, fill=softgray,
+                    minimum width=3.0cm, minimum height=1.1cm, align=center, font=\small\bfseries},
+        arrow/.style={-Latex, very thick, draw=ptitred}
+    ]
+        \node[box, fill=lightred] (video) {Webcam\\{\footnotesize OpenCV}};
+        \node[box, right=of video] (mp) {MediaPipe\\{\footnotesize 543 landmarks}};
+        \node[box, right=of mp] (tflite) {TFLite\\{\footnotesize 250 ASL signs}};
+        \node[box, right=of tflite] (nlp) {BARTpho\\{\footnotesize Ghép câu Việt}};
+        \node[box, right=of nlp, fill=lightred] (trans) {NLLB+LoRA\\{\footnotesize Dịch Việt--Lào}};
+
+        \draw[arrow] (video) -- (mp);
+        \draw[arrow] (mp) -- (tflite);
+        \draw[arrow] (tflite) -- node[above, font=\scriptsize\itshape]{gloss} (nlp);
+        \draw[arrow] (nlp) -- node[above, font=\scriptsize\itshape]{câu Việt} (trans);
+    \end{tikzpicture}
+
+    \vspace{0.4cm}
+    \begin{columns}[T]
+        \column{0.32\textwidth}
+        \begin{exampleblock}{\small Tầng 1: Thị giác}
+            \begin{itemize}\small
+                \item MediaPipe Holistic
+                \item TFLite pre-trained
+                \item 250 từ vựng ASL
+                \item Chạy trên CPU
+            \end{itemize}
+        \end{exampleblock}
+
+        \column{0.32\textwidth}
+        \begin{exampleblock}{\small Tầng 2: NLP tiếng Việt}
+            \begin{itemize}\small
+                \item Rule/template lookup
+                \item BARTpho fine-tuned
+                \item Fallback corrector
+                \item 32.755 mẫu training
+            \end{itemize}
+        \end{exampleblock}
+
+        \column{0.32\textwidth}
+        \begin{exampleblock}{\small Tầng 3: Dịch máy}
+            \begin{itemize}\small
+                \item NLLB-200 Distilled 600M
+                \item Adapter LoRA ($r=16$)
+                \item 100.000 cặp câu
+                \item BLEU = 23,57
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 7 ---
+\begin{frame}{Luồng dữ liệu từ đầu vào đến đầu ra}
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.15cm and 0.3cm,
+        box/.style={rectangle, draw=deepblue, fill=softgray, rounded corners=2pt,
+                    minimum width=2.3cm, minimum height=0.65cm, align=center, font=\scriptsize},
+        arrow/.style={-Latex, thick, draw=ptitred},
+        label/.style={font=\tiny\itshape, text=footergray}
+    ]
+        \node[box] (cam) {Webcam\\960$\times$540};
+        \node[box, right=of cam] (flip) {Flip\\+ RGB};
+        \node[box, right=of flip] (mp) {MediaPipe\\Holistic};
+        \node[box, right=of mp] (lm) {543$\times$3\\landmarks};
+        \node[box, right=of lm] (buf) {Sliding\\window};
+        \node[box, right=of buf] (tfl) {TFLite\\Interpreter};
+        \node[box, right=of tfl] (gloss) {Gloss\\(top-3)};
+
+        \draw[arrow] (cam) -- (flip);
+        \draw[arrow] (flip) -- (mp);
+        \draw[arrow] (mp) -- (lm);
+        \draw[arrow] (lm) -- (buf);
+        \draw[arrow] (buf) -- (tfl);
+        \draw[arrow] (tfl) -- (gloss);
+    \end{tikzpicture}
+
+    \vspace{0.15cm}
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.3cm,
+        box/.style={rectangle, draw=deepblue, fill=softgray, rounded corners=2pt,
+                    minimum width=2.3cm, minimum height=0.65cm, align=center, font=\scriptsize},
+        arrow/.style={-Latex, thick, draw=ptitred}
+    ]
+        \node[box] (tok) {Token\\buffer};
+        \node[box, right=of tok] (rule) {Rule/\\template};
+        \node[box, right=of rule] (bart) {BARTpho\\generate};
+        \node[box, right=of bart] (fb) {Fallback\\corrector};
+        \node[box, right=of fb] (vi) {Câu\\tiếng Việt};
+        \node[box, right=of vi] (nllb) {NLLB\\+LoRA};
+        \node[box, right=of nllb, fill=lightred] (lo) {Câu\\tiếng Lào};
+
+        \draw[arrow] (tok) -- (rule);
+        \draw[arrow] (rule) -- (bart);
+        \draw[arrow] (bart) -- (fb);
+        \draw[arrow] (fb) -- (vi);
+        \draw[arrow] (vi) -- (nllb);
+        \draw[arrow] (nllb) -- (lo);
+    \end{tikzpicture}
+
+    \vspace{0.3cm}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{\small Điều khiển realtime}
+            \begin{itemize}\scriptsize
+                \item \texttt{a}: thêm top-1 gloss vào buffer
+                \item \texttt{b}: ghép câu Việt $\rightarrow$ dịch Lào
+                \item \texttt{c}: xóa buffer
+                \item \texttt{SPACE}: reset bộ đệm frame
+                \item \texttt{q}: thoát
+            \end{itemize}
+        \end{block}
+
+        \column{0.48\textwidth}
+        \begin{alertblock}{\small Ưu điểm thiết kế}
+            \begin{itemize}\scriptsize
+                \item Người vận hành kiểm soát thời điểm thêm token
+                \item Giảm rủi ro nhận diện nhảy nhãn
+                \item Tùy chọn \texttt{--no-translation} khi máy yếu
+            \end{itemize}
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+% ========================================
+%  PHẦN 3: MÔ-ĐUN NHẬN DẠNG KÝ HIỆU
+% ========================================
+\section{Mô-đun nhận dạng ký hiệu}
+
+% --- SLIDE 8 ---
+\begin{frame}{Mô-đun 1: Tổng quan nhận dạng ký hiệu}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item \textbf{Bài toán}: phân loại đa lớp trên chuỗi đặc trưng thời gian
+            \item Video $\rightarrow$ chuỗi landmarks $\rightarrow$ nhãn ký hiệu (gloss)
+            \item Ký hiệu phụ thuộc: vị trí tay, quỹ đạo chuyển động, biểu cảm khuôn mặt, thứ tự thời gian
+            \item Không thể nhìn 1 frame đơn lẻ $\rightarrow$ cần \textbf{chuỗi multi-frame}
+        \end{itemize}
+
+        \column{0.42\textwidth}
+        \begin{block}{Mô hình sử dụng}
+            \small\textbf{TFLite pre-trained}\\
+            Kaggle ASL Signs 1st Place\\[4pt]
+            250 từ vựng ký hiệu ASL\\
+            Kích thước: $\sim$11 MB\\
+            Chạy trên CPU
+        \end{block}
+        \vspace{0.15cm}
+        \begin{alertblock}{\small Lưu ý}
+            \scriptsize Mô hình pre-trained, không do nhóm tự huấn luyện. Tập trung nguồn lực cho NLP phía sau.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 9 ---
+\begin{frame}{Mô-đun 1: MediaPipe Holistic -- 543 landmarks}
+    \begin{columns}[T]
+        \column{0.50\textwidth}
+        \begin{itemize}
+            \item MediaPipe Holistic (Google) trích xuất \textbf{543 landmarks} realtime
+            \item Gồm: 468 khuôn mặt + 33 pose + 21 tay trái + 21 tay phải
+            \item Mỗi landmark: 3 tọa độ $(x, y, z)$
+            \item Tổng: \textbf{1.629 đặc trưng/frame}
+        \end{itemize}
+
+        \vspace{0.2cm}
+        \small\textbf{Cấu hình MediaPipe:}
+        \begin{itemize}\small
+            \item \texttt{model\_complexity = 1}
+            \item \texttt{min\_detection\_confidence = 0.5}
+            \item \texttt{min\_tracking\_confidence = 0.5}
+        \end{itemize}
+
+        \column{0.46\textwidth}
+        \centering
+        \begin{tabular}{>{\small}l >{\small}r >{\small}r}
+            \toprule
+            \textbf{Thành phần} & \textbf{Điểm} & \textbf{Features} \\
+            \midrule
+            Khuôn mặt & 468 & 1.404 \\
+            Tay trái & 21 & 63 \\
+            Pose & 33 & 99 \\
+            Tay phải & 21 & 63 \\
+            \midrule
+            \textbf{Tổng} & \textbf{543} & \textbf{1.629} \\
+            \bottomrule
+        \end{tabular}
+
+        \vspace{0.3cm}
+        \begin{alertblock}{\small Tại sao giữ cả face?}
+            \scriptsize Mô hình TFLite được huấn luyện trên toàn bộ 543 landmarks. Face cung cấp tín hiệu biểu cảm quan trọng.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 10 ---
+\begin{frame}{Mô-đun 1: Sliding window \& suy luận TFLite}
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.35cm,
+        box/.style={rectangle, draw=deepblue, fill=softgray, rounded corners=2pt,
+                    minimum width=1.9cm, minimum height=0.75cm, align=center, font=\small},
+        arrow/.style={-Latex, thick, draw=ptitred}
+    ]
+        \node[box] (f) {Frame\\{\scriptsize webcam}};
+        \node[box, right=of f] (mp) {MediaPipe\\{\scriptsize Holistic}};
+        \node[box, right=of mp] (lm) {543 $\times$ 3\\{\scriptsize landmarks}};
+        \node[box, right=of lm] (chk) {Có tay?\\{\scriptsize filter}};
+        \node[box, right=of chk] (win) {deque\\{\scriptsize maxlen=60}};
+        \node[box, right=of win] (tfl) {TFLite\\{\scriptsize invoke()}};
+        \node[box, right=of tfl, fill=lightred] (out) {Top-3\\{\scriptsize + softmax}};
+
+        \draw[arrow] (f) -- (mp);
+        \draw[arrow] (mp) -- (lm);
+        \draw[arrow] (lm) -- (chk);
+        \draw[arrow] (chk) -- (win);
+        \draw[arrow] (win) -- (tfl);
+        \draw[arrow] (tfl) -- (out);
+    \end{tikzpicture}
+
+    \vspace{0.3cm}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Thông số sliding window}
+            \begin{tabular}{>{\small\bfseries}l >{\small}l}
+                \toprule
+                Tham số & Giá trị \\
+                \midrule
+                Min frames & 16 \\
+                Max frames & 60 \\
+                Predict every & 8 frames \\
+                Top-k & 3 \\
+                Padding thiếu & NaN (not zero) \\
+                \bottomrule
+            \end{tabular}
+        \end{block}
+
+        \column{0.48\textwidth}
+        \begin{block}{Quy trình suy luận TFLite}
+            \begin{enumerate}\small
+                \item \texttt{resize\_tensor\_input()}
+                \item \texttt{allocate\_tensors()}
+                \item \texttt{set\_tensor(input)}
+                \item \texttt{invoke()}
+                \item \texttt{get\_tensor(output)}
+                \item Softmax $\rightarrow$ top-k
+            \end{enumerate}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 11 ---
+\begin{frame}{Mô-đun 1: Chi tiết kỹ thuật quan trọng}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Điểm mạnh}
+            \begin{itemize}\small
+                \item Mô hình kiểm chứng qua cuộc thi Kaggle quốc tế
+                \item 543 landmarks bao gồm cả biểu cảm mặt
+                \item Suy luận TFLite trên CPU, không cần GPU
+                \item Cửa sổ trượt linh hoạt 16--60 frame
+                \item Logic ``chỉ gom khi có tay'' giảm nhiễu
+                \item Đầu ra gloss dễ nối với tầng NLP
+            \end{itemize}
+        \end{block}
+
+        \column{0.48\textwidth}
+        \begin{alertblock}{Giới hạn}
+            \begin{itemize}\small
+                \item Mô hình ASL, \textbf{chưa phải VSL}
+                \item 250 lớp $<$ nhu cầu giao tiếp thực tế
+                \item Nhận diện mức từ, chưa xử lý câu liên tục
+                \item Không thể can thiệp kiến trúc bên trong
+                \item Nhạy với ánh sáng, góc quay, che khuất tay
+                \item Khác biệt signer thật vs dữ liệu Kaggle
+            \end{itemize}
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+% ========================================
+%  PHẦN 4: MÔ-ĐUN KHÔI PHỤC CÂU TIẾNG VIỆT
+% ========================================
+\section{Mô-đun khôi phục câu tiếng Việt}
+
+% --- SLIDE 12 ---
+\begin{frame}{Mô-đun 2: Vì sao cần khôi phục câu?}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item Đầu ra tầng nhận diện chỉ là gloss rời rạc:
+            {\small\color{footergray} \texttt{toi muon uong\_nuoc}}
+            \item Thiếu ngữ pháp, dấu câu, viết hoa
+            \item Cần biến thành câu tiếng Việt tự nhiên:
+            {\small\color{deepblue} \textit{Tôi muốn uống nước.}}
+            \item Bài toán: \textbf{Sequence-to-Sequence}\\
+            (gloss $\rightarrow$ câu tiếng Việt)
+        \end{itemize}
+
+        \column{0.42\textwidth}
+        \begin{exampleblock}{Ví dụ chuyển đổi}
+            \scriptsize
+            \texttt{toi muon uong\_nuoc}\\
+            $\downarrow$\\
+            \textit{Tôi muốn uống nước.}\\[6pt]
+            \texttt{toi can giup\_do}\\
+            $\downarrow$\\
+            \textit{Tôi cần giúp đỡ.}\\[6pt]
+            \texttt{toi dau bung}\\
+            $\downarrow$\\
+            \textit{Tôi đau bụng.}
+        \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 13 ---
+\begin{frame}{Mô-đun 2: Kiến trúc lai 3 tầng ưu tiên}
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.3cm,
+        box/.style={rectangle, rounded corners=3pt, draw=deepblue, fill=softgray,
+                    minimum width=2.5cm, minimum height=0.65cm, align=center, font=\small},
+        arrow/.style={-Latex, thick, draw=ptitred},
+        yes/.style={font=\scriptsize\color{deepblue}, above},
+        no/.style={font=\scriptsize\color{ptitred}, below}
+    ]
+        \node[box] (g) {Chuỗi gloss};
+        \node[box, right=of g] (r) {Rule/template\\{\scriptsize match?}};
+        \node[box, right=of r] (b) {BARTpho\\{\scriptsize generate?}};
+        \node[box, right=of b] (fb) {Fallback\\{\scriptsize corrector}};
+        \node[box, right=of fb, fill=lightgreen] (out) {Câu tiếng Việt};
+        \draw[arrow] (g) -- (r);
+        \draw[arrow] (r) -- node[yes]{không} (b);
+        \draw[arrow] (b) -- node[yes]{không} (fb);
+        \draw[arrow] (fb) -- (out);
+
+        \draw[arrow, dashed, deepblue] (r.south) -- ++(0, -0.5) -| node[no, pos=0.25]{có} (out.south);
+        \draw[arrow, dashed, deepblue] (b.south) -- ++(0, -0.8) -| node[no, pos=0.25]{có} (out.south);
+    \end{tikzpicture}
+
+    \vspace{0.3cm}
+    \begin{columns}[T]
+        \column{0.32\textwidth}
+        \begin{block}{\small 1. Rule/template}
+            \begin{itemize}\scriptsize
+                \item Tra cứu trong \texttt{sentence\_rules.json}
+                \item Xử lý câu chào hỏi, yêu cầu hỗ trợ
+                \item Phản hồi tức thời
+                \item Ổn định, không cần GPU
+            \end{itemize}
+        \end{block}
+
+        \column{0.32\textwidth}
+        \begin{block}{\small 2. BARTpho fine-tuned}
+            \begin{itemize}\scriptsize
+                \item Mô hình: \texttt{vinai/bartpho-word-base}
+                \item Sinh câu linh hoạt
+                \item Beam search: 4 beams
+                \item Prefix: \texttt{chuyen\_cau\_ky\_hieu:}
+            \end{itemize}
+        \end{block}
+
+        \column{0.32\textwidth}
+        \begin{block}{\small 3. Fallback corrector}
+            \begin{itemize}\scriptsize
+                \item Ánh xạ token cơ bản
+                \item Viết hoa đầu câu
+                \item Thêm dấu câu tối thiểu
+                \item An toàn khi không có mô hình
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 14 ---
+\begin{frame}{Mô-đun 2: BARTpho -- Thông số và huấn luyện}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Thông số thiết kế}
+            \begin{tabular}{>{\small\bfseries}l >{\small}l}
+                \toprule
+                Tham số & Giá trị \\
+                \midrule
+                Mô hình nền & vinai/bartpho-word-base \\
+                Max input & 64 token \\
+                Max output & 64 token \\
+                Optimizer & AdamW \\
+                Learning rate & 5e-5 \\
+                Beam search & 4 beams \\
+                \bottomrule
+            \end{tabular}
+        \end{block}
+
+        \column{0.48\textwidth}
+        \begin{block}{Cấu hình fine-tune (Colab)}
+            \begin{tabular}{>{\small\bfseries}l >{\small}l}
+                \toprule
+                Tham số & Giá trị \\
+                \midrule
+                Môi trường & Google Colab \\
+                GPU & T4 \\
+                Epochs & 5 \\
+                Batch size & 4 \\
+                Max source & 96 token \\
+                Max target & 128 token \\
+                \bottomrule
+            \end{tabular}
+        \end{block}
+    \end{columns}
+
+    \vspace{0.3cm}
+    \begin{alertblock}{\small Tại sao chọn BARTpho?}
+        \small BARTpho là mô hình Seq2Seq đơn ngữ \textbf{đầu tiên} cho tiếng Việt. Đầu vào đã ở dạng token từ/cụm từ, phù hợp với biến thể word-level. Mô hình đơn ngữ diễn đạt câu đích mượt hơn so với mô hình đa ngôn ngữ.
+    \end{alertblock}
+\end{frame}
+
+% --- SLIDE 15 ---
+\begin{frame}{Mô-đun 2: Kết quả đánh giá BARTpho}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Dataset: VSL Vietnamese NLP v4 Mega}
+            \begin{itemize}\small
+                \item Tổng: \textbf{32.755} mẫu
+                \item 262 gloss token, 32 nhóm ngữ cảnh
+                \item Train: 26.204 {\scriptsize(80\%)}
+                \item Val: 3.275 {\scriptsize(10\%)}
+                \item Test: 3.276 {\scriptsize(10\%)}
+            \end{itemize}
+        \end{block}
+
+        \column{0.48\textwidth}
+        \centering
+        \begin{tabular}{>{\bfseries\small}l >{\small}c}
+            \toprule
+            Metric & Giá trị \\
+            \midrule
+            Exact Match & 0,9942 \\
+            BLEU & 99,78 \\
+            ROUGE-L & 0,9990 \\
+            chrF & 99,87 \\
+            Token F1 & 0,9980 \\
+            Perplexity & 1,0040 \\
+            \bottomrule
+        \end{tabular}
+    \end{columns}
+
+    \vspace{0.3cm}
+    \begin{alertblock}{Diễn giải trung thực}
+        \small Metric rất cao vì dataset \textbf{sinh từ rule/template} có cấu trúc rõ. Chưa thể khẳng định tương đương trên dữ liệu giao tiếp tự do. Cần kiểm thử thêm trên gloss thực từ tầng nhận diện.
+    \end{alertblock}
+\end{frame}
+
+% ========================================
+%  PHẦN 5: MÔ-ĐUN DỊCH VIỆT -- LÀO
+% ========================================
+\section{Mô-đun dịch Việt -- Lào}
+
+% --- SLIDE 16 ---
+\begin{frame}{Mô-đun 3: Tổng quan dịch Việt -- Lào}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item \textbf{Bài toán}: dịch máy text-to-text\\
+            (câu tiếng Việt $\rightarrow$ câu tiếng Lào)
+            \item Tiếng Lào = ngôn ngữ \textbf{ít tài nguyên}
+            \item Cần bảo toàn ý nghĩa, trật tự thông tin
+            \item Sai nghĩa ở tầng cuối = mất giá trị toàn bộ pipeline
+        \end{itemize}
+
+        \vspace{0.2cm}
+        \centering
+        \begin{tikzpicture}[
+            node distance=0.4cm,
+            box/.style={rectangle, rounded corners=3pt, draw=deepblue, fill=softgray,
+                        minimum width=2.5cm, minimum height=0.6cm, align=center, font=\small},
+            arrow/.style={-Latex, thick, draw=ptitred}
+        ]
+            \node[box] (vi) {Câu tiếng Việt};
+            \node[box, right=of vi] (nllb) {NLLB + LoRA};
+            \node[box, right=of nllb, fill=lightred] (lo) {Câu tiếng Lào};
+            \draw[arrow] (vi) -- (nllb);
+            \draw[arrow] (nllb) -- (lo);
+        \end{tikzpicture}
+
+        \column{0.42\textwidth}
+        \begin{block}{Tại sao chọn NLLB-200?}
+            \begin{itemize}\small
+                \item Hỗ trợ 200+ ngôn ngữ, bao gồm Lào
+                \item Tập trung vào ngôn ngữ ít tài nguyên
+                \item Bản Distilled 600M nhẹ, phù hợp đồ án
+                \item Tận dụng tiền huấn luyện đa ngôn ngữ
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 17 ---
+\begin{frame}{Mô-đun 3: Chiến lược LoRA \& cấu hình suy luận}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Cấu hình LoRA adapter}
+            \begin{tabular}{>{\small\bfseries}l >{\small}l}
+                \toprule
+                Tham số & Giá trị \\
+                \midrule
+                Rank ($r$) & 16 \\
+                Alpha ($\alpha$) & 32 \\
+                Dropout & 0,05 \\
+                Target modules & q/k/v/out\_proj \\
+                Task type & SEQ\_2\_SEQ\_LM \\
+                \bottomrule
+            \end{tabular}
+        \end{block}
+        \vspace{0.15cm}
+        \begin{alertblock}{\small Tại sao LoRA?}
+            \scriptsize Không huấn luyện lại toàn bộ NLLB. Chỉ học lớp thích nghi mỏng $\rightarrow$ tiết kiệm tài nguyên, adapter nhỏ gọn.
+        \end{alertblock}
+
+        \column{0.48\textwidth}
+        \begin{block}{Cấu hình suy luận}
+            \begin{tabular}{>{\small\bfseries}l >{\small}l}
+                \toprule
+                Tham số & Giá trị \\
+                \midrule
+                Ngôn ngữ nguồn & vie\_Latn \\
+                Ngôn ngữ đích & lao\_Laoo \\
+                Max length & 128 \\
+                Beam search & 5 beams \\
+                Forced BOS & lao\_Laoo token \\
+                \bottomrule
+            \end{tabular}
+        \end{block}
+        \vspace{0.15cm}
+        \begin{exampleblock}{\small Lưu ý quan trọng}
+            \scriptsize Phải đặt đúng \texttt{forced\_bos\_token\_id} cho tiếng Lào, nếu không mô hình đa ngôn ngữ có thể sinh sai ngôn ngữ.
+        \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 18 ---
+\begin{frame}{Mô-đun 3: Dataset \& kết quả huấn luyện}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Dataset song ngữ Việt -- Lào}
+            \begin{tabular}{>{\small\bfseries}l >{\small}r}
+                \toprule
+                Tập dữ liệu & Số cặp câu \\
+                \midrule
+                Train & 90.000 \\
+                Validation & 5.000 \\
+                Test & 5.000 \\
+                \midrule
+                \textbf{Tổng} & \textbf{100.000} \\
+                \bottomrule
+            \end{tabular}
+            \vspace{0.15cm}
+            \begin{itemize}\scriptsize
+                \item Đa miền: hội thoại, mô tả, tên riêng
+                \item Một số mẫu nhiễu chính tả, phiên âm
+            \end{itemize}
+        \end{block}
+
+        \column{0.48\textwidth}
+        \begin{block}{Kết quả (trích từ vilo.pdf)}
+            \centering
+            \begin{tabular}{>{\small\bfseries}l >{\small}c}
+                \toprule
+                Chỉ số & Giá trị \\
+                \midrule
+                Train loss & 4,67 \\
+                Validation loss & 1,06 \\
+                BLEU (test) & \textbf{23,57} \\
+                \bottomrule
+            \end{tabular}
+        \end{block}
+        \vspace{0.15cm}
+        \begin{alertblock}{\small Nhận xét}
+            \scriptsize BLEU 23,57 cho thấy mô hình đã học được khả năng dịch tương đối cho cặp Việt--Lào (ngôn ngữ ít tài nguyên). Chưa có chrF/TER truy vết trong workspace.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+% ========================================
+%  PHẦN 6: DEMO TÍCH HỢP
+% ========================================
+\section{Tích hợp và demo}
+
+% --- SLIDE 19 ---
+\begin{frame}{Pipeline tích hợp -- realtime\_integrated.py}
+    \begin{block}{Vòng lặp chính}
+        \begin{enumerate}\small
+            \item Đọc frame từ webcam $\rightarrow$ mô-đun nhận diện ASL-250
+            \item Hiển thị top-k dự đoán để người vận hành quan sát
+            \item \texttt{a}: lấy top-1, ánh xạ sang token tiếng Việt, thêm vào buffer
+            \item \texttt{b}: gửi buffer $\rightarrow$ SentenceBuilder $\rightarrow$ câu Việt $\rightarrow$ dịch Lào
+            \item \texttt{c}: xóa buffer, bắt đầu câu mới
+            \item \texttt{SPACE}: reset bộ đệm frame nhận diện
+            \item \texttt{q}: thoát, giải phóng camera
+        \end{enumerate}
+    \end{block}
+
+    \vspace{0.2cm}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{exampleblock}{\small Thiết kế demo}
+            \scriptsize Có người vận hành hỗ trợ xác nhận token. Giảm rủi ro nhận diện nhảy nhãn. Phù hợp demo học thuật.
+        \end{exampleblock}
+
+        \column{0.48\textwidth}
+        \begin{alertblock}{\small Tùy chọn --no-translation}
+            \scriptsize Kiểm thử 2 tầng đầu khi máy hạn chế tài nguyên hoặc chưa tải mô hình NLLB.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 20 ---
+\begin{frame}{Đánh giá tích hợp end-to-end}
+    \centering
+    \small
+    \begin{tabular}{>{\raggedright}p{4.5cm} >{\centering}p{2.5cm} p{5.5cm}}
+        \toprule
+        \textbf{Kịch bản thử nghiệm} & \textbf{Kết quả} & \textbf{Nhận xét} \\
+        \midrule
+        Ký hiệu câu ngắn (1--2 token) & Khả thi & Token đúng + rule $\rightarrow$ câu Việt rõ nghĩa \\[4pt]
+        Ký hiệu nhiều token liên tiếp & Cần xác nhận & Sai 1 token $\rightarrow$ lệch nghĩa câu \\[4pt]
+        Ánh sáng yếu / tay ra khỏi frame & Không ổn định & Tầng nhận diện là điểm nghẽn chính \\[4pt]
+        Chạy không tải mô hình dịch & Ổn định & \texttt{--no-translation} phù hợp test nhanh \\[4pt]
+        Chạy đầy đủ có dịch Việt--Lào & Phụ thuộc HW & Cần tải NLLB, độ trễ cao hơn \\
+        \bottomrule
+    \end{tabular}
+
+    \vspace{0.3cm}
+    \begin{alertblock}{Kết luận tích hợp}
+        \small Điểm quan trọng nhất: \textbf{nối được 3 mô-đun} có bản chất khác nhau (thị giác, sinh câu, dịch máy). Tuy nhiên đây vẫn là nguyên mẫu có người vận hành hỗ trợ.
+    \end{alertblock}
+\end{frame}
+
+% ========================================
+%  PHẦN 7: KẾT QUẢ VÀ KẾT LUẬN
+% ========================================
+\section{Kết luận và hướng phát triển}
+
+% --- SLIDE 21 ---
+\begin{frame}{Tổng kết kết quả theo từng mô-đun}
+    \centering
+    \small
+    \begin{tabular}{>{\bfseries}p{3.2cm} p{3.8cm} p{5.5cm}}
+        \toprule
+        \textbf{Mô-đun} & \textbf{Công nghệ} & \textbf{Kết quả chính} \\
+        \midrule
+        Nhận dạng ký hiệu & MediaPipe Holistic + TFLite (Kaggle 1st) & 250 signs, 543 landmarks, realtime CPU, sliding window 16--60 fr \\[4pt]
+        Khôi phục câu Việt & BARTpho + Rule + Fallback & Exact Match 99,4\%, BLEU 99,8 trên 32.755 mẫu \\[4pt]
+        Dịch Việt--Lào & NLLB-200 + LoRA ($r=16$) & BLEU 23,57 trên 100k cặp câu \\[4pt]
+        Tích hợp & realtime\_integrated.py & Pipeline 3 tầng hoạt động end-to-end \\
+        \bottomrule
+    \end{tabular}
+\end{frame}
+
+% --- SLIDE 22 ---
+\begin{frame}{Hạn chế hiện tại}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{alertblock}{Mô hình nhận diện}
+            \begin{itemize}\small
+                \item Dùng ASL-250 pre-trained, chưa phải VSL
+                \item Nhạy với ánh sáng, góc quay, che khuất
+                \item Nhận diện mức từ, chưa tự động câu liên tục
+                \item 250 lớp $<$ nhu cầu thực tế
+            \end{itemize}
+        \end{alertblock}
+
+        \column{0.48\textwidth}
+        \begin{alertblock}{NLP \& Dịch máy}
+            \begin{itemize}\small
+                \item Metric NLP cao trên dữ liệu template, chưa test dữ liệu tự do
+                \item Sai nhận diện lan sang ghép câu và dịch
+                \item chrF/TER dịch chưa truy vết được
+                \item Chưa đóng gói thành ứng dụng hoàn chỉnh
+            \end{itemize}
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 23 ---
+\begin{frame}{Hướng phát triển}
+    \begin{enumerate}
+        \item \textbf{Thu thập dữ liệu VSL thật} -- nhiều signer, nhiều góc quay, nhiều điều kiện ánh sáng
+        \item \textbf{Xây tập test nhận diện có nhãn} -- công bố Top-1/3/5 Accuracy, confusion matrix
+        \item \textbf{Mở rộng số lớp ký hiệu} + cơ chế nhận diện câu liên tục (tách đoạn, gom token tự động)
+        \item \textbf{Thử nghiệm mô hình mạnh hơn}: Transformer-based video, Temporal Convolution, GNN
+        \item \textbf{Cải thiện NLP}: dữ liệu gloss--câu phong phú hơn, bao gồm lỗi thật từ tầng nhận diện
+        \item \textbf{Tái lập metric dịch Việt--Lào}: chrF, TER + đánh giá thủ công bởi người biết tiếng Lào
+        \item \textbf{Text-to-speech}: thêm đầu ra giọng nói cho tiếng Việt hoặc tiếng Lào
+        \item \textbf{Đóng gói sản phẩm}: ứng dụng desktop/web/mobile
+    \end{enumerate}
+\end{frame}
+
+% --- SLIDE 24 ---
+\begin{frame}{Tài liệu tham khảo chính}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{\small Mô hình \& Framework}
+            \begin{itemize}\scriptsize
+                \item MediaPipe Holistic (Google, 2019)
+                \item Kaggle ASL Signs 1st Place (hoyso48)
+                \item BARTpho (Tran, Le \& Nguyen, 2022)
+                \item NLLB-200 (Meta AI, 2022)
+                \item LoRA (Hu et al., 2021)
+                \item TensorFlow Lite (Google)
+            \end{itemize}
+        \end{block}
+
+        \column{0.48\textwidth}
+        \begin{block}{\small Metrics \& Datasets}
+            \begin{itemize}\scriptsize
+                \item BLEU (Papineni et al., 2002)
+                \item ROUGE (Lin, 2004)
+                \item chrF (Popović, 2015)
+                \item TER (Snover et al., 2006)
+                \item WLASL (Li et al., WACV 2020)
+                \item Gloss2Text (Fayyazsanavi et al., 2024)
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 25 ---
+{
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+\begin{frame}[plain]
+\begin{tikzpicture}[overlay, remember picture]
+    % Background
+    \fill[ptitred] (current page.north west) rectangle (current page.south east);
+
+    % Thank you text
+    \node[font=\Huge\bfseries, text=white] at ([yshift=0.8cm]current page.center) {%
+        Cảm ơn Thầy và các bạn!%
+    };
+
+    \node[font=\large, text=white!90] at ([yshift=-0.3cm]current page.center) {%
+        đã lắng nghe bài trình bày%
+    };
+
+    % Q&A
+    \node[rectangle, rounded corners=6pt, fill=white, text=ptitred,
+          font=\Large\bfseries, inner sep=12pt] at ([yshift=-2cm]current page.center) {%
+        Phần hỏi đáp%
+    };
+
+    % Bottom info
+    \node[font=\small, text=white!80] at ([yshift=1.5cm]current page.south) {%
+        Nguyễn Hữu Hoàng Anh $\cdot$ Phạm Tuấn Anh $\cdot$ Nguyễn Hoàng Anh%
+    };
+    \node[font=\scriptsize, text=white!60] at ([yshift=0.9cm]current page.south) {%
+        GVHD: TS. Nguyễn Quốc Uy -- Khoa KTĐT1, PTIT -- Tháng 5/2026%
+    };
+\end{tikzpicture}
+\end{frame}
+}
+
+\end{document}
+

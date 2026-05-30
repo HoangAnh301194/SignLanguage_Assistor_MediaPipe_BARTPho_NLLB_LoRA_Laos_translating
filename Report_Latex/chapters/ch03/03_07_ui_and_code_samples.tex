@@ -1,0 +1,13 @@
+﻿\subsection{Giao diện chạy thử và các đoạn mã tiêu biểu}
+
+Phần giao diện chạy thử tập trung vào tính quan sát được của pipeline. Khi chương trình realtime hoạt động, màn hình cần thể hiện tối thiểu ba nhóm thông tin: khung hình webcam kèm skeleton/landmarks, top-k nhãn nhận diện hiện tại và trạng thái buffer/câu đầu ra. Cách hiển thị này giúp người vận hành biết mô hình đang nhìn thấy gì, đang dự đoán nhãn nào và dữ liệu nào sẽ được đưa sang tầng NLP.
+
+\begin{itemize}
+    \item Khung video hiển thị người dùng, skeleton pose và landmarks bàn tay do MediaPipe vẽ.
+    \item Vùng dự đoán hiển thị top-3 nhãn ký hiệu cùng xác suất tương ứng.
+    \item Vùng buffer hiển thị các token đã được xác nhận bằng phím \texttt{a}.
+    \item Vùng kết quả hiển thị câu tiếng Việt sau khi nhấn \texttt{b} và câu tiếng Lào nếu bật mô-đun dịch.
+\end{itemize}
+
+Các đoạn mã nên đưa vào báo cáo chỉ cần đại diện cho logic chính, chẳng hạn hàm ánh xạ nhãn ASL sang token tiếng Việt, thao tác thêm token vào buffer và lời gọi ghép câu/dịch. Phần code dài như khởi tạo MediaPipe, nạp TensorFlow Lite Interpreter hoặc cấu hình NLLB nên được mô tả bằng lời trong thân báo cáo để tránh làm loãng nội dung kỹ thuật chính.
+

@@ -1,0 +1,35 @@
+﻿\subsection{Đánh giá tích hợp toàn hệ thống}
+
+Ngoài việc đánh giá độc lập từng mô hình, đề tài cần đánh giá pipeline tổng thể để phản ánh đúng giá trị ứng dụng thực tế. Đánh giá end-to-end không chỉ quan tâm từng nhãn ký hiệu có đúng hay không, mà còn xem câu tiếng Việt và câu tiếng Lào cuối cùng có truyền đạt đúng ý định ban đầu của người dùng hay không.
+
+\subsubsection{Nội dung nên đánh giá}
+\begin{itemize}
+    \item Độ đúng của đầu ra cuối cùng từ video đến câu tiếng Việt và tiếng Lào.
+    \item Tốc độ phản hồi của toàn pipeline.
+    \item Tính ổn định của hệ thống khi chạy webcam liên tục.
+    \item Ảnh hưởng của lỗi mô-đun trước lên mô-đun sau.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Đánh giá định tính pipeline end-to-end}
+\label{tab:end-to-end-qualitative}
+\begin{tabularx}{\textwidth}{|X|p{3.4cm}|X|}
+\hline
+\textbf{Kịch bản thử nghiệm} & \textbf{Kết quả} & \textbf{Nhận xét} \\
+\hline
+Người dùng ký hiệu câu ngắn, gồm 1--2 token & Khả thi trong demo & Khi token nhận diện đúng và có rule/fallback phù hợp, hệ thống sinh được câu tiếng Việt rõ nghĩa và có thể chuyển sang tầng dịch. \\
+\hline
+Người dùng ký hiệu nhiều token liên tiếp & Cần thao tác xác nhận & Chất lượng phụ thuộc mạnh vào việc chọn đúng token vào buffer; sai một token có thể làm câu tiếng Việt lệch nghĩa. \\
+\hline
+Điều kiện ánh sáng yếu hoặc tay ra khỏi khung hình & Không ổn định & Tầng nhận diện là điểm nghẽn chính; khi landmarks mất ổn định, toàn bộ pipeline phía sau bị ảnh hưởng. \\
+\hline
+Chạy không tải mô hình dịch & Ổn định hơn & Tùy chọn \texttt{--no-translation} phù hợp để kiểm thử nhanh hai tầng đầu hoặc chạy trên máy hạn chế tài nguyên. \\
+\hline
+Chạy đầy đủ có dịch Việt -- Lào & Phụ thuộc tài nguyên máy & Lần chạy đầu có thể cần tải mô hình nền NLLB; độ trễ cao hơn so với chỉ sinh câu tiếng Việt. \\
+\hline
+\end{tabularx}
+\end{table}
+
+Kết quả tích hợp cho thấy điểm quan trọng nhất của hệ thống là khả năng nối được ba mô-đun vốn có bản chất khác nhau: thị giác, sinh câu tiếng Việt và dịch máy. Tuy nhiên, đây vẫn là nguyên mẫu có người vận hành hỗ trợ xác nhận token. Để đạt mức sản phẩm hoàn chỉnh, hệ thống cần thêm cơ chế tự động tách câu, lọc dự đoán nhiễu, đánh giá ngưỡng tin cậy và kiểm thử trên nhiều người dùng thật.
+

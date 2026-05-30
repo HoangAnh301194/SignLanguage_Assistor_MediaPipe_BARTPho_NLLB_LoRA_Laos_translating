@@ -1,0 +1,249 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc} % Font tiếng Việt
+\usepackage[fontsize=13pt]{scrextend} % Set fontsize=13pt
+% --- Gói tạo bảng co giãn ---
+\usepackage{tabularx} 
+
+% --- Gói màu sắc cho bảng (QUAN TRỌNG: phải có tùy chọn [table]) ---
+\usepackage[table]{xcolor}
+% --- Hiển thị code đẹp ---
+\usepackage{listings}
+
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codegray}{RGB}{90,90,90}
+\definecolor{codeblue}{RGB}{0,80,160}
+\definecolor{codegreen}{RGB}{0,130,70}
+\definecolor{codered}{RGB}{170,60,60}
+
+\lstdefinestyle{matlabstyle}{
+    language=Matlab,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codeblue}\bfseries,
+    commentstyle=\color{codegreen}\itshape,
+    stringstyle=\color{codered},
+    numberstyle=\tiny\color{codegray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    frame=single,
+    rulecolor=\color{black!25},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    xleftmargin=1.5em,
+    framexleftmargin=1.2em
+}
+% --- Cấu hình trang in ---
+\usepackage[paperheight=29.7cm,paperwidth=21cm,right=2cm,left=3cm,top=2cm,bottom=2.5cm,twoside]{geometry}
+
+% --- Font và Toán học ---
+\usepackage{mathptmx} % Times New Roman
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{microtype}
+
+% --- Đồ họa và bảng biểu ---
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{multicol,multirow,tabularx}
+\usepackage{rotating}
+\usepackage[font=bf]{caption}
+\usepackage{xcolor} % <--- QUAN TRỌNG: Để dùng màu đỏ ở bìa
+\usepackage{longtable}
+\usepackage{enumitem}
+% --- Định dạng tiêu đề ---
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4} 
+
+% Heading 1
+\titleformat{\section}[hang]{\normalfont\fontsize{16pt}{19.2pt}\selectfont \bfseries \centering}{\thesection.}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+% Heading 2
+\titleformat*{\subsection}{\fontsize{14pt}{16.8pt}\selectfont \bfseries}
+\titlespacing*{\subsection}{0pt}{10pt}{0pt}
+
+% Heading 3
+\titleformat*{\subsubsection}{\fontsize{13pt}{15.6pt}\selectfont \bfseries \itshape}
+\titlespacing*{\subsubsection}{0pt}{10pt}{0pt}
+
+% Heading 4
+\titleformat*{\paragraph}{\fontsize{13pt}{15.6pt}\selectfont \itshape}
+\titlespacing*{\paragraph}{0pt}{10pt}{0pt}
+
+% --- Cấu hình đoạn văn ---
+\usepackage{indentfirst}
+\renewcommand{\baselinestretch}{1.2} 
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{1cm}
+
+% --- Định nghĩa cột bảng ---
+\newcolumntype{s}{>{\hsize=.3\hsize}X}
+\newcolumntype{y}{>{\hsize=.4\hsize}X}
+\newcolumntype{d}{>{\hsize=.1\hsize}X}
+\newcolumntype{a}{>{\hsize=1.1\hsize}X}
+\newcolumntype{g}{>{\hsize=5\hsize}X}
+\newcolumntype{C}[1]{>{\hsize=#1\hsize\centering\arraybackslash}X}
+\renewcommand{\tabularxcolumn}[1]{>{\small}m{#1}}
+
+% --- Đánh số và Caption (Việt hóa) ---
+\renewcommand{\figurename}{\fontsize{12pt}{0pt}\selectfont \bfseries Hình}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\captionsetup[figure]{labelsep=space}
+
+\renewcommand{\tablename}{\fontsize{12pt}{0pt}\selectfont \bfseries Bảng}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\captionsetup[table]{labelsep=space}
+
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+% --- Tiện ích ---
+\usepackage{lipsum}
+\renewcommand{\contentsname}{MỤC LỤC}
+\usepackage[ddmmyyyy]{datetime}
+\usepackage{nameref}
+\usepackage[unicode]{hyperref}
+\Urlmuskip=0mu plus 2mu\relax
+\newcommand{\codepath}[1]{\begingroup\Urlmuskip=0mu plus 1mu\footnotesize\path{#1}\endgroup}
+
+% ================= DOCUMENT =================
+\begin{document}
+\renewcommand{\labelitemi}{--} 
+\renewcommand{\labelitemii}{-}
+% 1. Gọi file Bìa
+\input{cover}
+
+% --- BẮT ĐẦU PHẦN ĐẦU ---
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+% ================= LỜI CẢM ƠN =================
+\phantomsection
+\section*{LỜI CẢM ƠN}
+\addcontentsline{toc}{section}{LỜI CẢM ƠN}
+
+Em xin gửi lời cảm ơn chân thành và sâu sắc nhất đến Thầy \textbf{TS. Nguyễn Quốc Uy}, giảng viên giảng dạy học phần \textit{Học Sâu}, Khoa Kỹ Thuật Điện Tử 1, Học viện Công nghệ Bưu chính Viễn thông, người đã tận tâm truyền đạt những kiến thức nền tảng và hướng dẫn em trong suốt quá trình học tập cũng như thực hiện báo cáo này.
+
+Những kiến thức mà Thầy cung cấp không chỉ giúp em hiểu rõ bản chất của các mô hình học máy, từ mạng nơ-ron truyền thống, CNN, RNN, LSTM đến các kiến trúc tiên tiến như Transformer, mà còn tạo nền tảng vững chắc để em có thể triển khai thực tế một hệ thống AI phức tạp kết hợp cả Thị giác máy tính và Xử lý ngôn ngữ tự nhiên. Sự tận tâm của Thầy trong từng bài giảng và bài tập thực hành là động lực lớn giúp em hoàn thành tốt đồ án cuối kỳ này.
+
+Em đã cố gắng hoàn thiện báo cáo một cách tốt nhất có thể, tuy nhiên với khối lượng kiến thức đồ sộ của dự án và kinh nghiệm cá nhân còn hạn chế, bài làm khó tránh khỏi những thiếu sót. Em rất mong nhận được những ý kiến đóng góp quý báu của Thầy để có thể rút kinh nghiệm và hoàn thiện hơn trong tương lai.
+
+Cuối cùng, em xin kính chúc Thầy \textbf{TS. Nguyễn Quốc Uy} cùng quý thầy cô trong Khoa Kỹ Thuật Điện Tử 1 dồi dào sức khỏe, hạnh phúc và luôn thành công trong sự nghiệp trồng người.
+
+\newpage
+
+% ================= MỤC LỤC =================
+\phantomsection
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\tableofcontents
+
+\newpage
+
+% ================= DANH MỤC HÌNH ẢNH =================
+\phantomsection
+\addcontentsline{toc}{section}{DANH MỤC HÌNH ẢNH}
+\renewcommand{\listfigurename}{DANH MỤC HÌNH ẢNH}
+{\let\oldnumberline\numberline
+\renewcommand{\numberline}{Hình~\oldnumberline}
+\listoffigures}
+
+\newpage
+
+% ================= DANH MỤC BẢNG BIỂU =================
+\phantomsection
+\addcontentsline{toc}{section}{DANH MỤC BẢNG BIỂU}
+\renewcommand{\listtablename}{DANH MỤC BẢNG BIỂU}
+{\let\oldnumberline\numberline
+\renewcommand{\numberline}{Bảng~\oldnumberline}
+\listoftables}
+
+\newpage
+
+% ================= DANH MỤC KÝ HIỆU VÀ CHỮ VIẾT TẮT =================
+\phantomsection
+\section*{DANH MỤC KÝ HIỆU VÀ CHỮ VIẾT TẮT}
+\addcontentsline{toc}{section}{DANH MỤC KÝ HIỆU VÀ CHỮ VIẾT TẮT}
+
+\begin{longtable}{p{3cm}p{11cm}}
+\textbf{Ký hiệu} & \textbf{Ý nghĩa} \\ \hline
+VSL & Vietnamese Sign Language (Ngôn ngữ Ký hiệu Việt Nam). \\ 
+AI & Artificial Intelligence (Trí tuệ Nhân tạo). \\
+NLP & Natural Language Processing (Xử lý Ngôn ngữ Tự nhiên). \\
+CV & Computer Vision (Thị giác máy tính). \\
+ASL & American Sign Language (Ngôn ngữ ký hiệu Hoa Kỳ). \\
+WLASL & Word-Level American Sign Language dataset. \\
+RGB & Red-Green-Blue, biểu diễn màu chuẩn của ảnh số. \\
+TFLite & TensorFlow Lite, engine suy luận mô hình nhẹ của Google. \\
+GRU & Gated Recurrent Unit, một biến thể mạng hồi quy có cổng. \\
+TGCN & Temporal Graph Convolutional Network. \\
+LoRA & Low-Rank Adaptation (Kỹ thuật tinh chỉnh tham số hiệu quả). \\
+Keypoints & Tọa độ các điểm neo (khớp, mắt, mũi...) trên cơ thể. \\
+MediaPipe & Thư viện mã nguồn mở của Google dùng để trích xuất 543 landmarks từ video. \\
+BARTpho & Mô hình ngôn ngữ tạo sinh (Transformer) dành riêng cho tiếng Việt. \\
+NLLB & No Language Left Behind, họ mô hình dịch đa ngôn ngữ của Meta AI. \\
+BLEU & Bilingual Evaluation Understudy, metric đánh giá dịch máy theo n-gram. \\
+ROUGE & Recall-Oriented Understudy for Gisting Evaluation, metric so khớp chuỗi tham chiếu. \\
+chrF & Character n-gram F-score, metric đánh giá ở cấp ký tự. \\
+TER & Translation Edit Rate, metric đo số phép chỉnh sửa cần thiết. \\
+FPS & Frames Per Second, số khung hình xử lý được trong một giây. \\
+ROC-AUC & Area Under the Receiver Operating Characteristic Curve. \\
+\end{longtable}
+
+\newpage
+
+% ================= LỜI MỞ ĐẦU =================
+\phantomsection
+\section*{LỜI MỞ ĐẦU}
+\addcontentsline{toc}{section}{LỜI MỞ ĐẦU}
+
+Trong bối cảnh trí tuệ nhân tạo và học máy ngày càng phát triển, công nghệ nhận dạng hành động và xử lý ngôn ngữ tự nhiên (NLP) đang đóng vai trò vô cùng quan trọng trong việc thu hẹp khoảng cách giao tiếp giữa con người và máy tính. Đặc biệt, đối với cộng đồng người khiếm thính, việc xây dựng một hệ thống có khả năng nhận dạng và dịch thuật Ngôn ngữ Ký hiệu (Sign Language) sang ngôn ngữ nói/viết là một bài toán cấp thiết và mang ý nghĩa nhân văn sâu sắc. Hơn thế nữa, trong kỷ nguyên hội nhập quốc tế, việc mở rộng khả năng dịch thuật đa ngôn ngữ (chẳng hạn như từ Tiếng Việt sang Tiếng Lào) sẽ càng phá vỡ rào cản ngôn ngữ, tạo ra một hệ sinh thái giao tiếp toàn diện.
+
+Học phần \textit{Học Sâu (Deep Learning)} trang bị cho sinh viên các kiến thức nền tảng và chuyên sâu về mạng nơ-ron nhân tạo, các cấu trúc mạng tiên tiến như CNN, RNN, LSTM, Transformer, cũng như các kỹ thuật tinh chỉnh mô hình lớn (Fine-tuning, LoRA). Thông qua các nội dung này, sinh viên có khả năng áp dụng các mô hình học sâu vào các bài toán phức tạp kết hợp đa luồng xử lý như Thị giác máy tính (Computer Vision) và Xử lý ngôn ngữ tự nhiên (NLP).
+
+Báo cáo này trình bày quá trình nghiên cứu và phát triển một hệ thống dịch thuật ngôn ngữ ký hiệu toàn diện, bao gồm ba mô-đun AI cốt lõi nối tiếp nhau:
+\begin{enumerate}
+    \item \textbf{Nhận dạng ký hiệu ở tầng thị giác (Visual Sign Recognition):} Ứng dụng thư viện MediaPipe Holistic để trích xuất toàn bộ 543 landmarks (khuôn mặt, thân, hai bàn tay) từ video người dùng, kết hợp với mô hình TFLite pre-trained từ giải pháp đạt giải nhất cuộc thi Kaggle ASL Signs để dự đoán ra các gloss ở mức từ. Mô-đun này nhận diện 250 từ vựng ký hiệu ASL, sau đó ánh xạ sang gloss trung gian tiếng Việt để nối với các tầng NLP phía sau.
+    \item \textbf{Khôi phục ngữ pháp Tiếng Việt (VSL Vietnamese NLP):} Vì ngôn ngữ ký hiệu thường bị thiếu cấu trúc ngữ pháp chuẩn, mô-đun này sử dụng mô hình ngôn ngữ BARTpho (kết hợp các quy tắc rules/templates) để khôi phục các từ vựng rời rạc thành một câu Tiếng Việt hoàn chỉnh và có nghĩa.
+    \item \textbf{Dịch thuật Tiếng Việt - Tiếng Lào (Machine Translation):} Sử dụng mô hình \textit{facebook/nllb-200-distilled-600M} được tinh chỉnh bằng kỹ thuật LoRA trên tập dữ liệu song ngữ Việt - Lào để dịch câu Tiếng Việt vừa sinh ra sang Tiếng Lào, hoàn thiện chu trình giao tiếp đa quốc gia.
+\end{enumerate}
+
+Thông qua quá trình nghiên cứu và thực hiện đồ án, em có cơ hội hệ thống hóa lại các kiến thức về luồng xử lý dữ liệu phức tạp (Complex Data Pipeline). Việc tích hợp mô hình nhận diện ký hiệu pre-trained (TFLite), tinh chỉnh (fine-tune) mô hình ngôn ngữ đa dịch thuật bằng LoRA trên môi trường máy học giúp em hiểu rõ hơn về cách các mô hình học sâu tương tác và truyền dữ liệu cho nhau trong thực tế. Đây là những kinh nghiệm vô cùng quý giá để phục vụ cho các dự án AI quy mô lớn trong tương lai.
+
+Báo cáo được hoàn thành theo yêu cầu của học phần. Mặc dù em đã cố gắng thực hiện một cách đầy đủ và nghiêm túc, nhưng do khối lượng kiến thức đồ sộ và kinh nghiệm còn hạn chế nên bài làm khó tránh khỏi những thiếu sót. Em rất mong nhận được sự góp ý của Thầy để có thể hoàn thiện hơn trong các học phần tiếp theo.
+
+Em xin chân thành cảm ơn.
+
+\vspace{1cm}
+\begin{flushright}
+    \setlength{\rightskip}{1cm}
+    \textit{Hà Nội, ngày 27 tháng 5 năm 2026}\\
+    \vspace{0.5cm}
+    \textit{Sinh viên thực hiện}\\
+    \vspace{2cm}
+    \textbf{Nguyễn Hữu Hoàng Anh}
+\end{flushright}
+
+\newpage
+
+% --- NỘI DUNG CHÍNH ---
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{chapters/ch01_overview}
+\input{chapters/ch02_architecture}
+\input{chapters/ch03_implementation}
+\input{chapters/ch04_evaluation_conclusion}
+\input{backmatter/references}
+
+\end{document}
+

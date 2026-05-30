@@ -1,0 +1,14 @@
+﻿\subsection{Hạn chế hiện tại}
+
+Mặc dù hệ thống đã nối được ba mô-đun chính, phiên bản hiện tại vẫn còn một số hạn chế cần được nhìn nhận thẳng thắn.
+
+\begin{itemize}
+    \item Mô hình nhận diện đang dùng bộ ASL-250 pre-trained, chưa phải mô hình VSL thuần được huấn luyện trên dữ liệu người dùng Việt Nam.
+    \item Chất lượng nhận diện còn nhạy với ánh sáng, góc quay, khoảng cách tới camera, che khuất tay và tốc độ ký hiệu.
+    \item Pipeline hiện nhận diện theo token/gloss có thao tác xác nhận, chưa xử lý hoàn toàn tự động câu ký hiệu liên tục dài.
+    \item Sai số ở tầng nhận diện có thể lan sang tầng khôi phục câu và tầng dịch, đặc biệt khi một token quan trọng bị nhận sai.
+    \item Metric của mô-đun tiếng Việt rất cao trên bộ dữ liệu có cấu trúc/template, nhưng chưa đủ để khẳng định chất lượng tương đương trên dữ liệu giao tiếp tự do.
+    \item Mô-đun dịch Việt -- Lào đã có Train loss, Validation loss và BLEU trong \texttt{vilo.pdf}, nhưng chưa có chrF và TER truy vết trong workspace nên cần tái lập thêm nếu muốn đánh giá đầy đủ hơn.
+    \item Hệ thống hiện mới dừng ở mức nguyên mẫu demo, chưa được đóng gói thành ứng dụng desktop/web/mobile hoàn chỉnh.
+\end{itemize}
+

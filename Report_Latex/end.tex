@@ -1,0 +1,41 @@
+﻿\newpage
+
+% ================= KẾT LUẬN =================
+\section*{KẾT LUẬN}
+\addcontentsline{toc}{section}{KẾT LUẬN}
+
+Sau quá trình thực hiện đề tài báo cáo môn học \textit{Học Sâu}, em đã có cơ hội hệ thống hóa và vận dụng các kiến thức lý thuyết về mạng nơ-ron vào một siêu dự án AI có tính ứng dụng cao: Hệ thống dịch thuật Ngôn ngữ Ký hiệu Việt Nam (VSL) sang câu Tiếng Việt và Tiếng Lào. Thông qua việc tự tay xây dựng toàn bộ pipeline (từ khâu nhận dạng hình ảnh, khôi phục ngữ pháp đến dịch thuật ngôn ngữ), em đã hiểu rõ hơn về sức mạnh của việc kết hợp các mô hình học sâu thuộc cả hai lĩnh vực Computer Vision và Natural Language Processing.
+
+Trong báo cáo, em đã hoàn thiện thành công ba mô-đun chính:
+
+\begin{itemize}
+    \item \textbf{VSL Recognition:} Sử dụng thư viện MediaPipe Holistic để trích xuất toàn bộ 543 landmarks và tích hợp mô hình TFLite pre-trained (giải pháp đạt giải nhất Kaggle ASL Signs) để nhận dạng 250 từ vựng ký hiệu qua video theo thời gian thực.
+    \item \textbf{VSL Vietnamese NLP:} Xây dựng thuật toán ghép chuỗi kết hợp với mô hình ngôn ngữ tiên tiến (BARTpho) nhằm khôi phục lại cấu trúc ngữ pháp chuẩn xác cho câu tiếng Việt từ các từ vựng ký hiệu thô.
+    \item \textbf{Vietnamese-Lao Translation:} Ứng dụng kỹ thuật tinh chỉnh tham số hiệu quả (LoRA) trên mô hình \textit{m2m100\_418M} để dịch các câu Tiếng Việt sang Tiếng Lào, với độ chính xác cao nhờ được train trên tập dataset song ngữ chất lượng.
+\end{itemize}
+
+Kết quả đạt được cho thấy sự kết hợp giữa các luồng xử lý AI khác nhau là một hướng tiếp cận cực kỳ hiệu quả để giải quyết bài toán giao tiếp đa phương tiện và đa ngôn ngữ. Hệ thống không chỉ nhận dạng chính xác hành động qua luồng video webcam độ trễ thấp mà còn liên kết mượt mà với mô-đun dịch thuật. Tuy nhiên, đề tài vẫn còn một số hạn chế nhất định. Mô hình nhận dạng hành động hiện tại khá nhạy cảm với điều kiện ánh sáng và góc quay camera. Bên cạnh đó, để mô hình NLP sinh câu mượt mà hơn và mô hình dịch hoạt động theo thời gian thực (real-time inference) mượt mà hơn, hệ thống cần được tối ưu hóa kiến trúc và yêu cầu nền tảng phần cứng (GPU) mạnh mẽ hơn.
+
+Thông qua đồ án này, em đã củng cố được nền tảng vững chắc về thiết kế luồng xử lý dữ liệu (Data Pipeline), cách tích hợp mô hình pre-trained (TFLite) với các tầng xử lý ngôn ngữ, kiến trúc Transformer (BARTpho) và kỹ thuật Fine-tuning (LoRA). Đây là hành trang cực kỳ quan trọng giúp em tự tin tiến xa hơn trên con đường nghiên cứu Trí tuệ Nhân tạo.
+
+Em xin chân thành cảm ơn Thầy \textbf{TS. Nguyễn Quốc Uy} đã tận tình giảng dạy, truyền đạt những kiến thức chuyên sâu và truyền cảm hứng trong suốt quá trình học tập học phần \textit{Học Sâu}. Những kiến thức nền tảng thầy cung cấp đã giúp em có định hướng đúng đắn khi giải quyết các bài toán phức tạp. Kính mong nhận được những nhận xét và góp ý quý báu của Thầy để đồ án được hoàn thiện hơn!
+
+\vspace{1cm}
+\begin{flushright}
+    \textit{Hà Nội, ngày 27 tháng 5 năm 2026}
+\end{flushright}
+
+\newpage
+
+\newpage
+
+\section*{TÀI LIỆU THAM KHẢO}
+\addcontentsline{toc}{section}{TÀI LIỆU THAM KHẢO}
+
+\begin{enumerate}
+    \item TS. Lê Quốc Uy, \textit{Slide bài giảng học phần Học Sâu}, Khoa Kỹ Thuật Điện Tử 1, Học viện Công nghệ Bưu chính Viễn thông.
+
+
+
+
+\end{enumerate}

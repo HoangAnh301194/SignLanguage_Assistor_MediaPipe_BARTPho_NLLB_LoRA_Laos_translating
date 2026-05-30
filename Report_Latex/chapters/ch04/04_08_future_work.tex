@@ -1,0 +1,15 @@
+﻿\subsection{Hướng phát triển}
+
+Trên cơ sở các hạn chế hiện tại, đề tài có thể được phát triển theo nhiều hướng nhằm nâng cao cả độ chính xác lẫn khả năng ứng dụng thực tế.
+
+\begin{itemize}
+    \item Thu thập hoặc xây dựng bộ dữ liệu VSL thật với nhiều người ký hiệu, nhiều góc quay và nhiều điều kiện ánh sáng để huấn luyện/fine-tune mô hình nhận diện phù hợp hơn với tiếng Việt.
+    \item Xây dựng tập kiểm thử nhận diện có nhãn thật và file manifest \texttt{path,label} để công bố đầy đủ Top-1, Top-3, Top-5 Accuracy, Macro F1 và confusion matrix cho tầng thị giác.
+    \item Mở rộng số lớp ký hiệu và bổ sung cơ chế nhận diện câu ký hiệu liên tục, bao gồm tách đoạn động tác, lọc nhiễu và gom token tự động.
+    \item Thử nghiệm các mô hình chuỗi hoặc video mạnh hơn như Transformer-based video models, Temporal Convolution hoặc Graph Neural Network trên landmarks.
+    \item Cải thiện mô-đun khôi phục câu bằng dữ liệu gloss -- câu phong phú hơn, đặc biệt là dữ liệu sinh từ lỗi thật của tầng nhận diện.
+    \item Tái lập đánh giá đầy đủ cho mô-đun dịch Việt -- Lào trên validation/test set, lưu log metric và bổ sung đánh giá thủ công bởi người biết tiếng Lào.
+    \item Bổ sung text-to-speech cho tiếng Việt hoặc tiếng Lào để hệ thống hỗ trợ giao tiếp bằng giọng nói.
+    \item Đóng gói thành ứng dụng desktop, web hoặc mobile, kèm giao diện thân thiện hơn và cơ chế cấu hình camera/mô hình.
+\end{itemize}
+

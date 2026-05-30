@@ -1,0 +1,16 @@
+﻿\subsection{Phương pháp thực hiện}
+
+Đề tài được triển khai theo hướng mô-đun hóa. Mỗi mô-đun được xây dựng, kiểm thử và đánh giá độc lập trước khi tích hợp vào pipeline chung. Cách tiếp cận này giúp tách biệt lỗi, thuận tiện tối ưu và làm rõ đóng góp của từng mô hình.
+
+\begin{itemize}
+    \item Thu thập hoặc kế thừa dữ liệu cho từng bài toán con.
+    \item Tiền xử lý dữ liệu và chuẩn hóa đầu vào theo đặc thù mỗi mô hình.
+    \item Huấn luyện, tinh chỉnh, đánh giá riêng từng mô hình.
+    \item Tích hợp ba mô-đun vào chương trình demo thời gian thực.
+    \item So sánh kết quả ở mức mô-đun và mức hệ thống tổng thể.
+\end{itemize}
+
+Về quy trình kỹ thuật, đề tài đi theo thứ tự từ dưới lên. Trước hết, tầng thị giác được kiểm tra độc lập bằng webcam để bảo đảm có thể trích xuất landmarks và sinh nhãn ký hiệu. Tiếp theo, tầng tiếng Việt được kiểm thử bằng chuỗi token nhập tay nhằm loại bỏ ảnh hưởng của lỗi nhận diện. Sau đó, tầng dịch Việt -- Lào được kiểm thử bằng câu tiếng Việt hoàn chỉnh. Chỉ sau khi từng tầng hoạt động riêng lẻ, hệ thống mới được ghép thành pipeline tích hợp. Cách làm này giúp xác định rõ lỗi phát sinh ở tầng nào thay vì chỉ quan sát đầu ra cuối cùng.
+
+Trong phần đánh giá, báo cáo kết hợp hai nhóm bằng chứng. Nhóm thứ nhất là bằng chứng định lượng gồm accuracy, loss, BLEU, ROUGE, chrF, TER hoặc các metric tương ứng với từng bài toán. Nhóm thứ hai là bằng chứng định tính gồm quan sát demo, ví dụ đầu vào -- đầu ra và phân tích lỗi. Việc kết hợp hai nhóm bằng chứng giúp đánh giá hệ thống thực tế hơn, đặc biệt vì pipeline có nhiều tầng và không phải mô-đun nào cũng có cùng loại dữ liệu kiểm thử.
+
